@@ -1,8 +1,7 @@
 class JobProfilesController < ApplicationController
-  DEMO_USER = User.where(email: "demo@cachetons.com").first #TODO : à SUPPRIMER pour la version normale
 
   def index
-    @job_profiles = DEMO_USER.job_profiles
+    @job_profiles = Job_profiles.all
   end
 
   def show
@@ -17,10 +16,15 @@ class JobProfilesController < ApplicationController
     if test_empty_needed_fields(job_profile_params)
       create_error_message('Vous devez entrer un nom et des cotisations dans votre modèle de fiche de paie !')
     else
-      @job_profile = JobProfile.create!(user: DEMO_USER, name: job_profile_params[:name])
+      @job_profile = JobProfile.create!(name: job_profile_params[:name])
       job_profile_bool(job_profile_params)
       create_links(job_profile_params[:contributions_list])
-      redirect_to @job_profile, notice: 'Nouveau modèle créé' if @job_profile.save
+      if @job_profile.save
+        notice = 'Nouveau modèle créé'
+      else
+        notice = "Impossible d'enregistrer le modèle. Contactez votre administrateur"
+      end
+      redirect_to @job_profile, notice:
     end
   end
 
