@@ -1,0 +1,15 @@
+<% if notice %>
+  <div class="notice_container" data-controller="notice"  data-action="click->notice#close" data-notice-target="closeNoticeButton">
+    <div class="notice" role="notification utilisateur" >
+      <%= notice %>
+    </div>
+    <div class="blackout"></div>
+  </div>
+<% end %>
+<% if alert %>
+  <div class="alert" role="alerte utilisateur">
+    <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+  </div>
+<% end %>

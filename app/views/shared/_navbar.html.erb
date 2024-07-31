@@ -1,0 +1,45 @@
+<div class="navbar_container">
+  <div class="navbar_sticky_wrapper">
+    <div id="navbar_title">
+      <%= link_to "/", class: "home_icon" do %>
+        <h1>
+          <i class="fa-brands fa-redhat"><small>Cachetons</small></i>
+        </h1>
+      <% end %>
+    </div>
+
+    <nav class="navbar_user_links">
+      <h2>Version de démo</h2>
+      <ul>
+        <li><%= link_to "Vos modèles", job_profiles_url, class: "dropdown-item" %></li>
+        <li><%= link_to "Log out", "#", class: "dropdown-item" %></li>
+      </ul>
+    </nav>
+
+    <% unless params == {"controller"=>"companies", "action"=>"index"} %>
+      <nav class="navbar_links">
+        <h2><%= link_to "Toutes vos structures", companies_path %></h2>
+        <ul>
+          <% case params[:controller] %>
+            <% when "employees" %>
+              <li><%= link_to @employee.company.name, company_path(@employee.company.id) %></li>
+            <% when "payslips" %>
+              <% case params[:action] %>
+              <% when "index" %>
+                <li><%= link_to @company.name, company_path(@company.id) %></li>
+              <% when "show" %>
+                <li><%= link_to @payslip.company.name, company_path(@payslip.company.id) %></li>
+                <li><%= link_to "Liste des fiches de paye", company_payslips_path(@payslip.company.id) %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </nav>
+    <% end %>
+
+    <% ["companies", "payslips", "employees", "performances"].each do |controller| %>
+      <% if params[:controller] == controller %>
+        <%= render "shared/administration_data" unless controller == "companies" && params[:action] == "index" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

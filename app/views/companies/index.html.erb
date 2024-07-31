@@ -1,0 +1,40 @@
+<div id="companies_board_container">
+  <div id="companies_list">
+    <h2>
+      Vos structures
+    </h2>
+    <% if @companies.present? %>
+      <ul>
+        <% @companies.each do |company| %>
+          <li>
+            <%= link_to company_path(company) do %>
+              <div class="company_card">
+                <h3><%= company.name %></h3>
+                <p>
+                  <%= company.specialty %>
+                </p>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>
+        Vous n'avez encore enregistré aucune structure.
+      </p>
+    <% end %>
+  </div>
+  <div id="new_company_button" data-controller="add-company" data-add-company-target="newCompanyContainer">
+    <button data-action="click->add-company#add" data-add-company-target="addCompanyButton">+</button>
+    <div id="new_company_form" data-add-company-target="addCompanyForm" class="display_none">
+      <%= simple_form_for(@company) do |f| %>
+        <%= f.input :name, label: "Nom" %>
+        <%= f.input :siret, label: "SIRET" %>
+        <%= f.input :naf, label: "Code NAF" %>
+        <%= f.input :address, label: "Adresse" %>
+        <%= f.input :license_number, label: "Numéro de license" %>
+        <%= f.button :submit, "Ajouter une structure", id: "company_create_form_button" %>
+      <% end %>
+    </div>
+  </div>
+</div>

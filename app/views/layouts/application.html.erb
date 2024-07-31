@@ -11,6 +11,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "shared/navbar" unless params[:controller] == "devise/sessions" || params[:controller] == "home" %>
+    <%= render "shared/flashes" %>
+    <div class="rendered_page d-flex justify-content-between">
+      <%= yield %>
+    </div>
   </body>
 </html>
