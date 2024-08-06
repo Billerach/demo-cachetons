@@ -26,7 +26,7 @@
   </div>
   <div id="new_company_button" data-controller="add-company" data-add-company-target="newCompanyContainer">
     <button data-action="click->add-company#add" data-add-company-target="addCompanyButton">+</button>
-    <div id="new_company_form" data-add-company-target="addCompanyForm" class="display_none">
+    <div id="new_company_form" data-add-company-target="addCompanyForm" class="d-none">
       <%= simple_form_for(@company) do |f| %>
         <%= f.input :name, label: "Nom" %>
         <%= f.input :siret, label: "SIRET" %>
@@ -37,4 +37,5 @@
       <% end %>
     </div>
   </div>
+  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt harum voluptate doloribus quaerat qui iste iure molestiae officiis quis eum, necessitatibus perferendis quod? Impedit, enim. Officia ipsa itaque placeat dolor!</p>
 </div>

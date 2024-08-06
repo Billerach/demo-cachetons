@@ -10,11 +10,26 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= render "shared/navbar" unless params[:controller] == "devise/sessions" || params[:controller] == "home" %>
-    <%= render "shared/flashes" %>
-    <div class="rendered_page d-flex justify-content-between">
+  <body class="m-0 p-0">
+    <% if params[:controller] == "pages" %>
+      <%= render "shared/flashes" %>
       <%= yield %>
-    </div>
+    <% else %>
+      <div class="container w-100 m-0 p-0 border border-danger">
+        <div class="row">
+
+          <div class="col-12 col-md-4 col-sm-3 sticky-top vh-100 border border-success">
+            <%= render "shared/navbar"  %>
+          </div>
+
+          <div class="col-12 col-md-8 col-sm-9 p-4 border border-success">
+            <%= yield %>
+          </div>
+
+          <%= render "shared/flashes" %>
+
+        </div>
+      </div>
+    <% end %>
   </body>
 </html>
