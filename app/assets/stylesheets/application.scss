@@ -8,6 +8,36 @@
 @import "font-awesome";
 
 // Your CSS partials
+@import "variables";
 @import "components/index";
 @import "pages/index";
 @import "companies/index";
+@import "shared/index";
+
+body{
+  background-color: $ultralight-bleuvert;
+  color:black;
+  font: 1rem $secondary_font;
+}
+
+h2{
+  font: 2rem $primary_font;
+}
+
+.there_is_noting_message{
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 40px;
+}
+
+.blackout{
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 50%;
+}

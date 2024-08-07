@@ -7,6 +7,12 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Prompt:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2b29c26b4c.js" crossorigin="anonymous"></script>
+
     <%= javascript_importmap_tags %>
   </head>
 
@@ -15,20 +21,18 @@
       <%= render "shared/flashes" %>
       <%= yield %>
     <% else %>
-      <div class="container w-100 m-0 p-0 border border-danger">
-        <div class="row">
+      <div class="row m-0 justify-content-end">
 
-          <div class="col-12 col-md-4 col-sm-3 sticky-top vh-100 border border-success">
-            <%= render "shared/navbar"  %>
-          </div>
-
-          <div class="col-12 col-md-8 col-sm-9 p-4 border border-success">
-            <%= yield %>
-          </div>
-
-          <%= render "shared/flashes" %>
-
+        <div class="navbar_container col-12 col-md-4 col-lg-3">
+          <%= render "shared/navbar"  %>
         </div>
+
+        <div class="col-12 col-md-8  col-lg-9 m-0 p-4">
+          <%= yield %>
+        </div>
+
+        <%= render "shared/flashes" %>
+
       </div>
     <% end %>
   </body>

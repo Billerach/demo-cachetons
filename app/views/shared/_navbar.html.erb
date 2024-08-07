@@ -1,4 +1,4 @@
-
+<div class="navbar_sticky_wrapper">
   <div id="navbar_title">
     <%= link_to "/", class: "home_icon" do %>
       <h1>
@@ -15,7 +15,7 @@
     </ul>
   </nav>
 
-  <% unless params == {"controller"=>"companies", "action"=>"index"} %>
+  <% unless controller_name == "companies" && action_name = "index" %>
     <nav class="navbar_links">
       <h2><%= link_to "Toutes vos structures", companies_path %></h2>
       <ul>
@@ -40,3 +40,4 @@
       <%= render "shared/administration_data" unless controller == "companies" && params[:action] == "index" %>
     <% end %>
   <% end %>
+</div>

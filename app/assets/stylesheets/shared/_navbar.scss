@@ -1,0 +1,67 @@
+@import "../variables";
+
+.navbar_container{
+  background-color : $light-bleuvert;
+
+  h2{
+    font: 1.1rem $secondary_font;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.navbar_sticky_wrapper{
+  position: sticky;
+  top: 0;
+  padding: 20px;
+}
+
+
+@media screen and (min-width: 768px) {
+  .navbar_sticky_wrapper{
+    height:100vh;
+  }
+}
+
+
+
+#navbar_title{
+  display : flex;
+
+  h1{
+    font-size: 40px;
+    color : $ultralight-bleuvert;
+    text-decoration: none;
+    letter-spacing: 2px;
+    margin:10px;
+  }
+
+  small{
+    margin-left: 10px;
+    font-size: 20px;
+  }
+
+}
+
+.navbar_links, .navbar_user_links, .company_administration_data{
+  border : 1px solid $bleuvert;
+  margin-top: 20px;
+  padding:10px;
+
+  li{
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+
+  a{
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s;
+  }
+
+  a:hover{
+    color: $ultralight-bleuvert;
+  }
+
+}
