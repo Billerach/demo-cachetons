@@ -1,0 +1,68 @@
+.performance_card{
+  margin:10px;
+  width: 200px;
+  border : 1px solid $grey200-opacity25;
+  background-color:$grey250;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 1px $grey200-opacity25;
+  overflow: hidden;
+
+  img{
+    max-height: 200px;
+    object-fit: cover;
+  }
+}
+
+.performance_card_button{
+  height: 0;
+  a{
+    position: relative;
+    right: -161px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid $grey150;
+    font-size: 16px;
+    color: $grey150;
+    text-align: center;
+    background-color: $grey250;
+  }
+
+  a:hover{
+    color: $grey250;
+    transition: all 0.25s;
+  }
+
+  i{
+    position: relative;
+    top:3px;
+  }
+}
+
+.performance_card_edit a{
+  top:6px;
+
+  &:hover{
+    border: 1px solid $bleuvert;
+    background-color: $light-bleuvert;
+  }
+}
+
+.performance_card_delete a{
+  top:160px;
+
+  &:hover{
+    border: 1px solid $red;
+    background-color: $red;
+  }
+}
+
+.performance_card_infos{
+  color: black;
+  padding:10px;
+
+  h5{
+    font: 1rem $primary_font;
+  }
+}

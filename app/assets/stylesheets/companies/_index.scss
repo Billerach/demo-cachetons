@@ -1,5 +1,6 @@
 @import "../variables";
 @import "show";
+@import "section";
 
 #companies_list{
 
@@ -11,9 +12,9 @@
     margin: 0 auto;
   }
 
-  li{
-    margin-top: 30px;
-  }
+  li{margin-top: 30px;}
+
+  h2{line-height: 3rem;}
 }
 
 #new_company_btn{

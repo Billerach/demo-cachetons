@@ -1,148 +1,44 @@
 @import "../variables";
 
-.company_show_container {
-  display: flex;
-  flex-direction: column;
-  padding : 20px;
+#payslips_index_link{
 
-  h2{
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    line-height: 40px;
-    text-decoration: underline $light-bleuvert;
-  }
-}
-
-.payslips_index_link{
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.payslips_index_link h4{
-
+  display: block;
   background-color: $light-bleuvert;
-  width: 300px;
-  border: 1px solid $bleuvert;
-  border-radius: 10px;
+  width: 50%;
+  height:30px;
+  line-height: 30px;
+  margin:0 auto;
+  border-radius: 8px;
   text-align: center;
   box-shadow: 2px 4px 8px 3px $grey200-opacity25;
+  text-transform: uppercase;
+  color: black;
+  transition: all 0.15s;
+  font-size: 1rem;
 
-  a{
-    display: block;
-    text-transform: uppercase;
-    color: black;
-    text-decoration: none;
-    transition: all 0.3s;
-    padding: 20px;
-  }
-
-  a:hover{
+  &:hover{
     background-color: $bleuvert;
-    transition: all 0.3s;
     color: white;
   }
 }
 
-.company_performances{
-  border-top: 1px solid $grey200-opacity25;
-
-  ul{
-    display: flex;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
-    flex-wrap: wrap;
-    align-items: stretch;
-  }
-
-}
-
-.performance_card{
-
-  width: 200px;
-  list-style-type: none;
-  border : 1px solid $grey200-opacity25;
-  background-color:$grey250;
-  border-radius: 5px;
-  box-shadow: 1px 1px 5px 1px $grey200-opacity25;
-  overflow: hidden;
-
-  img{
-    max-height: 200px;
-    object-fit: cover;
-  }
-}
-
-.performance_card_button{
-  height: 0;
-  a{
-    position: relative;
-    right: -161px;
-    display: block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid $grey150;
-    font-size: 16px;
-    color: $grey150;
-    text-align: center;
-    background-color: $grey250;
-  }
-
-  a:hover{
-    color: $grey250;
-    transition: all 0.25s;
-  }
-
-  i{
-    position: relative;
-    top:3px;
-  }
-}
-
-.performance_card_edit a{
-  top:6px;
-
-  &:hover{
-    border: 1px solid $bleuvert;
-    background-color: $light-bleuvert;
-  }
-}
-
-.performance_card_delete a{
-  top:160px;
-
-  &:hover{
-    border: 1px solid $red;
-    background-color: $red;
-  }
-}
-
-.company_new_performance{
+#company_show_performances_section ul{
   display: flex;
-  flex-direction: row-reverse;
-}
-
-.performance_card_infos{
-  color: black;
-  padding:10px;
-
-  h5{
-    font: 1rem $primary_font;
-  }
+  flex-wrap: wrap;
 }
 
 .company_new_performance form{
+
+  margin: 10px;
+  height: 200px;
   background-color: $light-bleuvert;
   border: 1px solid $bleuvert;
-  width: 300px;
-  border-radius: 10px;
+  border-radius: 5px;
   text-align: center;
   padding: 10px;
-  box-shadow: 2px 4px 8px 3px $grey200-opacity25;
+  box-shadow: 1px 1px 5px 1px $grey200-opacity25;
 
   input{
-    width: 292px;
     line-height: 25px;
     background-color: white;
     border: 1px solid #c8c8c8;
@@ -150,20 +46,14 @@
     margin: 3px 0;
   }
 
+  input:current{
+    border:none;
+  }
+
   input:hover{
     border: 2px solid $light-bleuvert;
     transition: all 0.5s;
   }
-
-  button{
-    color:red;
-    width:50px;
-    height:50px;
-    border-radius: 25px;
-    background-color: $bleuvert;
-    border: none;
-    color:white;
-    font: 4rem $secondary_font;
-    line-height: 0;
-  }
 }
+
+#company_show_employees_section li{margin: 20px;}

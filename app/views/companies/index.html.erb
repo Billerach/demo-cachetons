@@ -1,17 +1,19 @@
 <div id="companies_list">
   <div class="d-flex justify-content-center">
-    <h2>Vos structures</h2>
-    <div id="new_company_btn" class="new_button" data-controller="add-company" data-add-company-target="newCompanyContainer">
-      <button data-action="click->add-company#add" data-add-company-target="addCompanyButton">+</button>
-      <div id="new_company_form" data-add-company-target="addCompanyForm" class="d-none new_form">
-        <%= simple_form_for(@company) do |f| %>
-          <%= f.input :name, label: "Nom" %>
-          <%= f.input :siret, label: "SIRET" %>
-          <%= f.input :naf, label: "Code NAF" %>
-          <%= f.input :address, label: "Adresse" %>
-          <%= f.input :license_number, label: "Numéro de license" %>
-          <%= f.button :submit, "Ajouter une structure", id: "company_create_button", class: "create_button" %>
-        <% end %>
+    <div class="d-flex">
+      <h2 class="page_title">Vos structures</h2>
+      <div id="new_company_btn" class="new_button" data-controller="add-company" data-add-company-target="newCompanyContainer">
+        <button data-action="click->add-company#add" data-add-company-target="addCompanyButton">+</button>
+        <div id="new_company_form" data-add-company-target="addCompanyForm" class="d-none new_form">
+          <%= simple_form_for(@company) do |f| %>
+            <%= f.input :name, label: "Nom" %>
+            <%= f.input :siret, label: "SIRET" %>
+            <%= f.input :naf, label: "Code NAF" %>
+            <%= f.input :address, label: "Adresse" %>
+            <%= f.input :license_number, label: "Numéro de license" %>
+            <%= f.button :submit, "Ajouter une structure", id: "company_create_button", class: "create_button" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

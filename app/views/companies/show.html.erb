@@ -1,12 +1,12 @@
-<div class="company_show_container">
-  <h2><%= @company.name %></h2>
+<h2 class="page_title">
+  <%= @company.name %>
+</h2>
+<h4>
+  <%= link_to "Fiches de paie", company_payslips_path(@company), id: "payslips_index_link" %>
+</h4>
 
-  <div class="payslips_index_link">
-    <h4><%= link_to "Voir toutes les fiches de paie", company_payslips_path(@company) %></h4>
-  </div>
-
-  <div class="company_performances">
-  <h4><%= @company.name %> : Les spectacles</h4>
+<div id="company_show_performances_section" class="company_section">
+  <h4>Les spectacles</h4>
   <ul>
     <% @company.performances.each do |performance| %>
       <li class="performance_card">
@@ -39,40 +39,47 @@
         <% end %>
       </li>
     <% end %>
+    <li class="company_new_performance">
+      <%= simple_form_for([@company, @performance]) do |f| %>
+        <%= f.input :name,      input_html: {placeholder: "Titre"}, label: false, required: true %>
+        <%= f.input :num_objet, input_html: {placeholder: "Numéro d'objet"}, label: false, required: true %>
+        <%= f.button :submit, "Nouveau spectacle"%>
+      <% end %>
+    </li>
   </ul>
-  <div class="company_new_performance">
-    <%= simple_form_for([@company, @performance]) do |f| %>
-      <%= f.input :name,      input_html: {placeholder: "Titre"}, label: false, required: true %>
-      <%= f.input :num_objet, input_html: {placeholder: "Numéro d'objet"}, label: false, required: true %>
-      <%= f.button :submit, "Nouveau spectacle", class: "company_create_form_button" %>
-    <% end %>
-  </div>
-  </div>
+</div>
 
+<div id="company_show_employees_section" class="company_section">
   <h4>Employés de la companie :</h4>
+  <div class="d-flex justify-content-between">
+    <ul>
+      <% @company.employees.each do |employee| %>
+        <li>
+          <%= link_to employee.lastname_with_firstname, company_employee_path(@company, employee), class: "company_card" %>
+        </li>
+      <% end %>
+    </ul>
+    <div class="new_form light_shadow_box m-0">
+      <%= simple_form_for([@company, @employee]) do |f| %>
+        <%= f.input :firstname,            input_html: {placeholder: 'Prénom'}, label: false, required: true %>
+        <%= f.input :lastname,             input_html: {placeholder: 'Nom'}, label: false, required: true %>
+        <%= f.input :address,              input_html: {placeholder: 'Adresse'}, label: false, required: true %>
+        <%= f.input :phone,                input_html: {placeholder: 'N° de téléphone'}, label: false, required: true %>
+        <%= f.input :phone_2,              input_html: {placeholder: 'Autre N° de téléphone'}, label: false, required: false %>
+        <%= f.input :NIR,                  input_html: {placeholder: 'N° de sécurité sociale'}, label: false, required: true %>
+        <%= f.input :conges_spectacles,    input_html: {placeholder: 'N° de congés spectacles'}, label: false, required: false %>
+        <%= f.label :date_of_birth, "Date de naissance" %>
+        <%= f.date_field :date_of_birth,   input_html: {placeholder: 'Date de naissance'}, label: false, required: true %>
+        <%= f.input :place_of_birth,       input_html: {placeholder: 'Lieu de naissance'}, label: false, required: true %>
+        <%= f.input :departement_of_birth, input_html: {placeholder: 'Département de naissance'}, label: false, required: false %>
+        <%= f.input :country_of_birth,     input_html: {placeholder: 'Pays de naissance'}, label: false, required: true %>
+        <%= f.button :submit, "Nouvel employé" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-  <ul>
-    <% @company.employees.each do |employee| %>
-      <li><%= link_to employee.lastname_with_firstname, company_employee_path(@company, employee) %></li>
-    <% end %>
-  </ul>
-
-  <%= simple_form_for([@company, @employee]) do |f| %>
-    <%= f.input :firstname,            input_html: {placeholder: 'Prénom'}, label: false, required: true %>
-    <%= f.input :lastname,             input_html: {placeholder: 'Nom'}, label: false, required: true %>
-    <%= f.input :address,              input_html: {placeholder: 'Adresse'}, label: false, required: true %>
-    <%= f.input :phone,                input_html: {placeholder: 'N° de téléphone'}, label: false, required: true %>
-    <%= f.input :phone_2,              input_html: {placeholder: 'Autre N° de téléphone'}, label: false, required: false %>
-    <%= f.input :NIR,                  input_html: {placeholder: 'N° de sécurité sociale'}, label: false, required: true %>
-    <%= f.input :conges_spectacles,    input_html: {placeholder: 'N° de congés spectacles'}, label: false, required: false %>
-    <%= f.label :date_of_birth, "Date de naissance" %>
-    <%= f.date_field :date_of_birth,   input_html: {placeholder: 'Date de naissance'}, label: false, required: true %>
-    <%= f.input :place_of_birth,       input_html: {placeholder: 'Lieu de naissance'}, label: false, required: true %>
-    <%= f.input :departement_of_birth, input_html: {placeholder: 'Département de naissance'}, label: false, required: false %>
-    <%= f.input :country_of_birth,     input_html: {placeholder: 'Pays de naissance'}, label: false, required: true %>
-    <%= f.button :submit, "Nouvel employé", class: "company_create_form_button" %>
-  <% end %>
-
+<div class="company_section">
   <h4>
     <%= link_to "Supprimer la structure",
                 company_path(@company),
@@ -81,5 +88,5 @@
                   turbo_confirm: "!!! ATTENTION !!!\n#{@company.name} et TOUS LES SPECTACLES ET FICHES DE PAIE QUI Y SONT LIÉE seront DÉFINITIVEMENT SUPPRIMÉS."
                 }
     %>
-  </h4>
+</h4>
 </div>
