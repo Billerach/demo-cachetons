@@ -1,8 +1,5 @@
 <div class="company_show_container">
-  <h2>
-    Tableau de bord <br />
-    <%= @company.name %>
-  </h2>
+  <h2><%= @company.name %></h2>
 
   <div class="payslips_index_link">
     <h4><%= link_to "Voir toutes les fiches de paie", company_payslips_path(@company) %></h4>
