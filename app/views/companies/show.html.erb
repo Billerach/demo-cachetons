@@ -1,0 +1,88 @@
+<div class="company_show_container">
+  <h2>
+    Tableau de bord <br />
+    <%= @company.name %>
+  </h2>
+
+  <div class="payslips_index_link">
+    <h4><%= link_to "Voir toutes les fiches de paie", company_payslips_path(@company) %></h4>
+  </div>
+
+  <div class="company_performances">
+  <h4><%= @company.name %> : Les spectacles</h4>
+  <ul>
+    <% @company.performances.each do |performance| %>
+      <li class="performance_card">
+        <div class= "performance_card_button performance_card_edit">
+          <%= link_to edit_company_performance_path(@company, performance) do %>
+              <i class="fa-solid fa-pencil"></i>
+          <% end %>
+        </div>
+        <div class="performance_card_button performance_card_delete">
+          <%= link_to company_performance_url(@company, performance), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer #{performance.name} ?" } do %>
+            <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        </div>
+        <%= link_to company_payslips_path(@company, performance:) do %>
+          <%= image_tag "performances.jpg", alt: "Image affiche de #{performance.name}" %>
+          <div class="performance_card_infos">
+            <h5><%= performance.name %></h5>
+            <p><%= performance.num_objet %></p>
+            <p>
+              <% case performance.payslips.count %>
+              <% when 0 %>
+                Aucune fiche de paie
+              <% when 1 %>
+                1 fiche de paie
+              <% else %>
+                <%= "#{performance.payslips.count} fiches de paie" %>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="company_new_performance">
+    <%= simple_form_for([@company, @performance]) do |f| %>
+      <%= f.input :name,      input_html: {placeholder: "Titre"}, label: false, required: true %>
+      <%= f.input :num_objet, input_html: {placeholder: "Numéro d'objet"}, label: false, required: true %>
+      <%= f.button :submit, "Nouveau spectacle", class: "company_create_form_button" %>
+    <% end %>
+  </div>
+  </div>
+
+  <h4>Employés de la companie :</h4>
+
+  <ul>
+    <% @company.employees.each do |employee| %>
+      <li><%= link_to employee.lastname_with_firstname, company_employee_path(@company, employee) %></li>
+    <% end %>
+  </ul>
+
+  <%= simple_form_for([@company, @employee]) do |f| %>
+    <%= f.input :firstname,            input_html: {placeholder: 'Prénom'}, label: false, required: true %>
+    <%= f.input :lastname,             input_html: {placeholder: 'Nom'}, label: false, required: true %>
+    <%= f.input :address,              input_html: {placeholder: 'Adresse'}, label: false, required: true %>
+    <%= f.input :phone,                input_html: {placeholder: 'N° de téléphone'}, label: false, required: true %>
+    <%= f.input :phone_2,              input_html: {placeholder: 'Autre N° de téléphone'}, label: false, required: false %>
+    <%= f.input :NIR,                  input_html: {placeholder: 'N° de sécurité sociale'}, label: false, required: true %>
+    <%= f.input :conges_spectacles,    input_html: {placeholder: 'N° de congés spectacles'}, label: false, required: false %>
+    <%= f.label :date_of_birth, "Date de naissance" %>
+    <%= f.date_field :date_of_birth,   input_html: {placeholder: 'Date de naissance'}, label: false, required: true %>
+    <%= f.input :place_of_birth,       input_html: {placeholder: 'Lieu de naissance'}, label: false, required: true %>
+    <%= f.input :departement_of_birth, input_html: {placeholder: 'Département de naissance'}, label: false, required: false %>
+    <%= f.input :country_of_birth,     input_html: {placeholder: 'Pays de naissance'}, label: false, required: true %>
+    <%= f.button :submit, "Nouvel employé", class: "company_create_form_button" %>
+  <% end %>
+
+  <h4>
+    <%= link_to "Supprimer la structure",
+                company_path(@company),
+                data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "!!! ATTENTION !!!\n#{@company.name} et TOUS LES SPECTACLES ET FICHES DE PAIE QUI Y SONT LIÉE seront DÉFINITIVEMENT SUPPRIMÉS."
+                }
+    %>
+  </h4>
+</div>

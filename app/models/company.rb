@@ -7,11 +7,9 @@
 #
 
 class Company < ApplicationRecord
-  has_many :payslips
-  has_many :employees
-  has_many :performances
-
-  has_many :company_links
+  has_many :payslips, dependent: :destroy
+  has_many :employees, dependent: :destroy
+  has_many :performances, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 end

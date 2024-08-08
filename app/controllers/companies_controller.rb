@@ -34,7 +34,7 @@ class CompaniesController < ApplicationController
   def destroy
     @company = Company.find(params[:id])
     @company.destroy
-    redirect_to companies_path, "#{@company.name} a été supprimé définitivement."
+    redirect_to companies_path, notice: "#{@company.name} a été supprimé définitivement."
   end
 
   private

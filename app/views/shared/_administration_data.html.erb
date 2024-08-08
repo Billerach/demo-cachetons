@@ -1,0 +1,15 @@
+<div class="company_administration_data">
+  <% if params[:controller] == "companies" %>
+    <% company = @company %>
+  <% else %>
+    <% company = Company.find(params[:company_id].to_i) %>
+  <% end %>
+  <h2><%= company.name %></h2>
+  <p>
+    <strong>Siret : </strong>         <%= company.siret %><br />
+    <strong>NAF : </strong>           <%= company.naf %><br />
+    <strong>Adresse : </strong>       <%= company.address %><br />
+    <strong>N° de License : </strong> <%= company.license_number %><br />
+  </p>
+    <%= link_to "Modifier les données de la structure", edit_company_url if params[:controller] == "companies" && params[:action] == "show" %>
+</div>
