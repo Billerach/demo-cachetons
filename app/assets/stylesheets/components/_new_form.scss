@@ -1,0 +1,52 @@
+
+.new_form{
+  margin: 0 auto;
+  width: 400px;
+  background-color:$grey250;
+  border : 1px solid $grey200;
+  padding:20px;
+  box-shadow: 5px 5px 5px $bleuvert-opacity50;
+  border-radius: 5px;
+  font-size:14px;
+  color: $bleuvert;
+  text-transform: uppercase;
+  line-height: 30px;
+  transition: all 0.2s;
+  text-overflow: ellipsis;
+
+  form{
+    display: flex;
+    flex-direction: column;
+    margin:0;
+    padding:0;
+  }
+
+  label{
+    display: block;
+    text-align: center;
+    width: 100%;
+    align-items: center;
+    margin:0;
+    padding:0;
+  }
+
+  .required input, .optional input{
+    align-items: flex-end;
+    width:100%;
+    line-height: 30px;
+    background-color: white;
+    border: 1px solid $grey200;
+    border-radius: 5px;
+    margin:0;
+    padding:0;
+  }
+
+  .required input:hover, .optional input:hover{
+    border: 1px solid $light-bleuvert;
+    transition: all 0.5s;
+  }
+
+  #company_siret:focus{
+    border: 1px solid $bleuvert;
+  }
+}

@@ -7,8 +7,8 @@ export default class extends Controller {
   }
 
   add() {
-    this.addCompanyFormTarget.classList.remove("display_none");
-    this.addCompanyButtonTarget.classList.add("display_none");
+    this.addCompanyFormTarget.classList.remove("d-none");
+    this.addCompanyButtonTarget.classList.add("d-none");
     this.newCompanyContainerTarget.insertAdjacentHTML(
       "beforeEnd",
       "<div class='blackout'>",
