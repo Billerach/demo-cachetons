@@ -15,7 +15,7 @@
     </ul>
   </nav>
 
-  <% unless controller_name == "companies" && action_name = "index" %>
+  <% unless controller_name == "companies" && action_name == "index" %>
     <nav class="navbar_links">
       <h2><%= link_to "Toutes vos structures", companies_path %></h2>
       <ul>
