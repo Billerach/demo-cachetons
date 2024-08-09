@@ -2,8 +2,8 @@
   <div class="d-flex justify-content-center">
     <div class="d-flex">
       <h2 class="page_title">Vos structures</h2>
-      <div id="new_company_btn" class="new_button" data-controller="add-company" data-add-company-target="newCompanyContainer">
-        <button data-action="click->add-company#add" data-add-company-target="addCompanyButton">+</button>
+      <div id="new_company_btn" data-controller="add-company" data-add-company-target="newCompanyContainer">
+        <button data-action="click->add-company#add" data-add-company-target="addCompanyButton" class="new_button">+</button>
         <div id="new_company_form" data-add-company-target="addCompanyForm" class="d-none new_form">
           <%= simple_form_for(@company) do |f| %>
             <%= f.input :name, label: "Nom" %>

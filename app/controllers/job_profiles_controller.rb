@@ -1,7 +1,7 @@
 class JobProfilesController < ApplicationController
 
   def index
-    @job_profiles = Job_profiles.all
+    @job_profiles = JobProfile.all
   end
 
   def show
@@ -10,6 +10,7 @@ class JobProfilesController < ApplicationController
 
   def new
     @contributions = Contribution.all
+    @job_profile = JobProfile.new
   end
 
   def create

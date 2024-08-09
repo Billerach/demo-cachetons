@@ -1,0 +1,22 @@
+<div id="job_profiles_index">
+  <div id="job_profiles_index_header" class="page_title d-flex justify-content-evenly">
+    <div>
+      <h2>Vos modèles</h2>
+      <h3>(IDCC 1285 : CCN Entreprises artistiques et culturelles)</h3>
+    </div>
+    <%= button_to "+", new_job_profile_path, method: :get, class: "new_button" %>
+  </div>
+  <% if @job_profiles.present? %>
+    <ul>
+      <% @job_profiles.each do |job_profile| %>
+        <li class="mt-3">
+          <%= link_to job_profile_url(job_profile.id), class: "job_profile_card" do %>
+            <%= "#{job_profile.name} ( #{job_profile.artist? ? "artiste" : "non-artiste"} #{job_profile.executive? ? "cadre" : "non-cadre"} )"%>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <strong class="there_is_noting_message">Pas de modèle enregistré.</strong>
+  <% end %>
+</div>
