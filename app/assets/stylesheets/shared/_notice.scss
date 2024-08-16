@@ -1,0 +1,18 @@
+.notice_container{
+  cursor: pointer;
+}
+
+.notice{
+  z-index: 2;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  background-color: #fafafa;
+  border: 1px solid #c8c8c8;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2ea39d;
+  text-transform: uppercase;
+}
