@@ -2,7 +2,6 @@ class PayslipsController < ApplicationController
   def index
     @payslips = set_payslips
     @company = Company.find(params[:company_id])
-    @payslip = Payslip.new
   end
 
   def show
