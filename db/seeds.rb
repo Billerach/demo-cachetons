@@ -352,6 +352,7 @@ payslips[:employee_id].each_with_index do |employee_id, index|
     payslip_number: 1,
     employee_id: employee_id,
     company_id: payslips[:company_id][index],
+    job_profile: JobProfile.first.name,
     contract_start: '2018-01-12',
     contract_end: '2018-01-13',
     payment_date: '2018-01-17',

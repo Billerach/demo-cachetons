@@ -1,0 +1,19 @@
+@import "show";
+
+.new_payslip_form_position{
+    @media screen and (max-width:450px) {
+      left:24%;
+      max-width:75%;
+    }
+
+    @media screen and (min-width:451px) and (max-width:500px){left:10%;}
+    @media screen and (min-width:501px) and (max-width:550px){left:13%;}
+    @media screen and (min-width:551px) and (max-width:600px){left:16%;}
+    @media screen and (min-width:601px) and (max-width:650px){left:19%;}
+    @media screen and (min-width:651px) and (max-width:700px){left:21%;}
+    @media screen and (min-width:701px) {left:24%;}
+}
+
+.li_margin-top{
+  margin-top: 10px;
+}

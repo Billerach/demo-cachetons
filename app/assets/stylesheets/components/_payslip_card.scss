@@ -1,0 +1,14 @@
+.payslip_card{
+  border : 1px solid $grey200;
+  background-color:$grey250;
+  border-radius: 5px;
+  color:$bleuvert;
+  transition: all 0.2s;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.payslip_card:hover{
+  box-shadow: 3px 3px 3px $bleuvert-opacity20;
+  background-color: white;
+}

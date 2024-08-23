@@ -1,0 +1,123 @@
+<div id="payslips_show_container">
+  <div class="payslips_show_header">
+    <h2>
+      <div class="payslips_show_header_title">Bulletin de paie n° <%= @payslip.payslip_number %></div>
+      <div class="payslips_show_header_name"><%= @payslip.employee.lastname %> <%= @payslip.employee.firstname %></div>
+    </h2>
+  </div>
+  <%= link_to "Modifier la fiche de paie", edit_company_payslip_url %>
+  <% if Payslip.where(employee: @payslip.employee.id).count == @payslip.payslip_number %>
+    <%= link_to "Supprimer cette fiche de paie",
+      company_payslip_path(@payslip.company, @payslip),
+      data: { turbo_method: :delete, turbo_confirm: "Supprimer cette fiche de paie ?" }
+    %>
+  <% end %>
+  <div class="payslips_show_infos">
+    <div class="payslips_show_infos_company">
+      <p>
+        Companie <%= @payslip.company.name %><br />
+        <%= @payslip.company.address %>
+      </p>
+      <p>Siret : <%= @payslip.company.siret %></p>
+      <p>Code APE : <%= @payslip.company.naf %></p>
+    </div>
+    <div class="payslips_show_infos_contract">
+      <p>Période du <%= @payslip.contract_start %> au <%= @payslip.contract_end %>.</p>
+      <p>Règlement du <%= @payslip.payment_date %>. Réf. : <%= @payslip.payment_id %></p>
+      <p>Numéro d'objet : <%= @payslip.performance.num_objet %>.</p>
+    </div>
+  </div>
+  <div class="payslips_show_infos_employee">
+    <div class="payslips_show_infos_employee_job_infos">
+      <p>
+        Emploi : <%= @payslip.job_profile %>
+      </p>
+      <p>
+        Statut : <%= @payslip.executive? ? "Cadre" : "Non-cadre" %>
+      </p>
+      <p>
+        N.I.R. : <%= @payslip.employee.NIR %>
+      </p>
+      <p>
+        N° de Congés Spectacles : <%= @payslip.employee.conges_spectacles %>
+      </p>
+    </div>
+    <div class="payslips_show_infos_employee_address">
+      <p>
+        <%= @payslip.employee.firstname  %> <%= @payslip.employee.lastname.upcase %>
+      </p>
+      <p>
+        <%= @payslip.employee.address  %>
+        </p>
+    </div>
+  </div>
+  <table class="payslips_show_table">
+    <tbody>
+      <tr>
+        <td rowspan="3" colspan="2">
+          <p>
+            Nombre de jours travaillés :
+            <strong>
+              <%= (@payslip.contract_end - @payslip.contract_start).to_i + 1 if @payslip.contract_end? %>
+            </strong>
+          </p>
+          <% if @payslip.artist? %>
+            <p>
+              Combien de services de répétition ? : <%= @payslip.number_of_rehearsal %><br />
+              Combien de représentations ? : <%= @payslip.number_of_performance %><br />
+            </p>
+          <% else %>
+            <p>
+              Nombre d'heures par jour : <%= @payslip.hours_per_day %><br />
+              Nombre d'heures total : <%= @payslip.number_of_hours %><br />
+            </p>
+          <% end %>
+        </td>
+        <td>Base</td>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td><strong><%= sprintf("%.2f", @payslip.basis) if @payslip.basis.present? %></strong></td>
+        <td colspan="2">Part salariale</td>
+        <td colspan="2">Part patronale</td>
+        </tr>
+      <tr>
+        <td></td>
+        <td>Taux</td>
+        <td>Montant</td>
+        <td>Taux</td>
+        <td>Montant</td>
+      </tr>
+      <% @payslip.contributions.each do |contribution| %>
+        <tr>
+          <td><%= contribution.fund %></td>
+          <td><%= contribution.name %></td>
+          <td><%= sprintf("%.2f", @payslip.basis)%></td>
+          <% if contribution.employee_part != 0 %>
+            <td><%= (contribution.employee_part*100).round(2) %>%</td>
+            <td><%= sprintf("%.2f",(contribution.employee_part*@payslip.basis).floor(2)) %></td>
+            <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
+          <% if contribution.employer_part != 0 %>
+            <td><%= (contribution.employer_part*100).round(2) %>%</td>
+            <td><%= (contribution.employer_part*@payslip.basis).floor(2) %></td>
+            <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Totaux</td>
+        <td></td>
+        <td><strong><%= sprintf("%.2f",(@payslip.employee_s_contribution).floor(2)) %></strong></td>
+        <td></td>
+        <td><strong><%= sprintf("%.2f",(@payslip.employer_s_contribution).floor(2)) %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

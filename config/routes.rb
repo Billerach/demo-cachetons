@@ -7,11 +7,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :companies do
-    resources :payslips, except: %i[update destroy create]
-    patch '/payslips/:id', to: 'payslips#update', as: :payslip_update
-    delete '/payslips/:id', to: 'payslips#destroy', as: :payslip_destroy
-    post '/payslips', to: 'payslips#create', as: :payslip_create
-    resources :company_links, only: [:create]
+    resources :payslips, except: [:new]
     resources :employees, except: [:index]
     resources :performances, except: %i[index new show]
   end

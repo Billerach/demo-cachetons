@@ -14,4 +14,12 @@
     transition: all 0.2s;
     color: white;
   }
+
+}
+.company_letter_spacing{
+  @media screen and (max-width:363px) {letter-spacing: 1px;}
+}
+
+.payslip_letter_spacing{
+  @media screen and (max-width:363px) {white-space: normal;}
 }

@@ -4,14 +4,14 @@
       <h2 class="page_title">Vos structures</h2>
       <div id="new_company_btn" data-controller="add-company" data-add-company-target="newCompanyContainer">
         <button data-action="click->add-company#add" data-add-company-target="addCompanyButton" class="new_button">+</button>
-        <div id="new_company_form" data-add-company-target="addCompanyForm" class="d-none new_form">
+        <div data-add-company-target="addCompanyForm" class="d-none new_form new_company_form_position">
           <%= simple_form_for(@company) do |f| %>
             <%= f.input :name, label: "Nom" %>
             <%= f.input :siret, label: "SIRET" %>
             <%= f.input :naf, label: "Code NAF" %>
             <%= f.input :address, label: "Adresse" %>
             <%= f.input :license_number, label: "Numéro de license" %>
-            <%= f.button :submit, "Ajouter une structure", id: "company_create_button", class: "create_button" %>
+            <%= f.button :submit, "Ajouter une structure", class: "create_button company_letter_spacing" %>
           <% end %>
         </div>
       </div>
