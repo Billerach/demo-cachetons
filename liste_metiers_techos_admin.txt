@@ -1,7 +1,0 @@
-Accessoiriste,
-Administrateur de production,
-Administrateur de tournée,
-Architecte décorateur,
-Armurier,
-Artificier/Technicien de pyrotechnie,
-Attaché de production/Chargé de production

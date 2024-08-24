@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# require 'open-uri'
-
 puts 'Destroy payslips to contributions links'
 PayslipsToContributionsLink.destroy_all
 
@@ -292,12 +290,57 @@ puts 'Contributions created'
 
 puts 'Creating job profiles'
 
-txt = File.read(Rails.root.join('liste_metiers_techos_admin.txt'))
-array = txt.split(',')
-array.pop
-array.each do |job|
+jobs_list = {
+  nartistsnc:[
+    "Accessoiriste",
+    "Administrateur/Administratrice de production",
+    "Administrateur/Administratrice de tournée",
+    "Architecte décorateur",
+    "Armurier/Armurière",
+    "Technicien/Technicienne de pyrotechnie",
+    "Chargé(e) de production"
+  ],
+  nartistsc:[
+    "Régisseur/Régisseuse de scène",
+    "Régisseur/Régisseuse général",
+    "Régisseur/Régisseuse lumière",
+    "Régisseur/Régisseuse plateau",
+    "Régisseur/Régisseuse son",
+    "Directeur/Directrice de production",
+    "Directeur/Directrice technique"
+  ],
+  artistsnc:[
+    "Artiste lyrique",
+    "Musicien(ne)",
+    "Artiste chorégraphe",
+    "Artiste de variété",
+    "Arrangeur-orchestrateur/Arrangeuse-orchestratrice/",
+    "Artiste dramatique"
+  ],
+  artistsc:[
+    "Réalisateur/Réalisatrice coiffure, perruques",
+    "Réalisateur/Réalisatrice",
+    "Réalisateur/Réalisatrice costumes",
+    "Réalisateur/Réalisatrice lumière",
+    "Réalisateur/Réalisatrice son",
+    "Directeur/Directrice artistique"
+  ]
+}
+
+jobs_list[:nartistsnc].each do |job|
   JobProfile.create!(artist: false, executive: false, name: job)
-  JobProfile.create!(artist: false, executive: false, name: job)
+end
+
+jobs_list[:nartistsc].each do |job|
+  JobProfile.create!(artist: false, executive: true, name: job)
+end
+
+jobs_list[:artistsnc].each do |job|
+  JobProfile.create!(artist: true, executive: false, name: job)
+end
+
+jobs_list[:artistsc].each do |job|
+  JobProfile.create!(artist: true, executive: true, name: job)
 end
 
 puts 'Job profiles created'
@@ -318,11 +361,50 @@ puts 'creating payslips'
 payslips = {
   payslip_number: 1,
   employee_id: [jean_mich.id, fabrice.id, mamadou.id, luke.id, albert.id, luke2.id,albert2.id],
+  artists: [jean_mich.id, albert.id, luke2.id,albert2.id],
+  nartists: [fabrice.id, mamadou.id, luke.id],
   company_id: [company1.id, company2.id, company3.id, company1.id, company2.id, company3.id, company3.id],
-  performance_id: [p1.id, p2.id, p3.id, p1.id, p2.id, p3.id, p3.id],
+  performance_id: [p1.id, p2.id, p3.id, p1.id, p2.id, p3.id, p3.id]
 }
 
-payslips[:employee_id].each_with_index do |employee_id, index|
+payslips[:artists].each_with_index do |employee_id, index|
+  Payslip.create!(
+    payslip_number: 1,
+    employee_id: employee_id,
+    company_id: payslips[:company_id][index],
+    job_profile: JobProfile.last.name,
+    contract_start: '2018-01-12',
+    contract_end: '2018-01-13',
+    payment_date: '2018-01-17',
+    payment_id: 'virement n°5624927892',
+    performance_id: payslips[:performance_id][index],
+    hours_per_day: 8,
+    number_of_days: 2,
+    executive: false,
+    allowance: 1,
+    basis: 212.00,
+    basis_per_day: 106.00,
+    allowance_basis: 212.00,
+    number_of_hours: 16,
+    employer_s_contribution: 115.09,
+    employee_s_contribution: 52.77,
+    net_salary: 159.23,
+    taxable_net: 165.30,
+    urssaf_limit: 400.00,
+    employer_cost: 286.68,
+    number_of_performance: 0,
+    number_of_rehearsal: 0,
+    gross_salary_accumulation: 138,
+    taxable_net_accumulation: 109.93,
+    net_accumulation: 105.98,
+    urssaf_limit_accumulation: 288.00,
+    employer_cost_accumulation: 214.20,
+    hours_accumulation: 12,
+    artist: false
+  )
+end
+
+payslips[:nartists].each_with_index do |employee_id, index|
   Payslip.create!(
     payslip_number: 1,
     employee_id: employee_id,
@@ -334,6 +416,7 @@ payslips[:employee_id].each_with_index do |employee_id, index|
     payment_id: 'virement n°5624927892',
     performance_id: payslips[:performance_id][index],
     hours_per_day: 8,
+    number_of_days: 2,
     executive: false,
     allowance: 1,
     basis: 212.00,

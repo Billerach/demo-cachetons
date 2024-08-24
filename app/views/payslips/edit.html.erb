@@ -1,43 +1,148 @@
-<div class="container">
+<div>
+
   <h2 class="page_title">
     Edition paie
     <%= "#{@payslip.employee.lastname_with_firstname} ##{@payslip.payslip_number}" %>
   </h2>
-  <%= simple_form_for(@payslip, url: company_payslip_url(@payslip.company, @payslip.id),
-    method: :patch, html: { class: "payslips_show_infos_contract_dates" }) do |f| %>
-    <p>
-      <%= f.input :contract_start, label: "Début du contrat :", as: :date, html5: true, input_html: { value: @payslip.contract_start } %>
-      <%= f.input :contract_end, label: "Fin du contrat :", as: :date, html5: true, input_html: { value: @payslip.contract_end } %>
-    </p>
-    <p>
-      Pour <strong>"<%= @payslip.performance.name %>"</strong>,
-      numéro d'objet : <strong><%= @payslip.performance.num_objet %></strong>
-    </p>
-    <p>
-      <%= f.input :payment_date, label: "Paiement le ", as: :date, html5: true, input_html: { value: @payslip.payment_date } %>
-      <%= f.input :payment_id, label: "via ", input_html: { value: "Référence du paiement" } %>
-    </p>
-    <div class="payslips_edit">
-      <div class="payslips_edit_form">
-        <p>
-          Nombre de jours travaillés :
-          <strong>
-            <%= (@payslip.contract_end - @payslip.contract_start).to_i + 1 if @payslip.contract_end? %>
-          </strong>
-        </p>
-        <% if @payslip.artist? %>
-          <p>
-            Combien de services de répétition ? : <%= f.input :number_of_rehearsal, as: :integer %><br />
-            Combien de représentations ? : <%= f.input :number_of_performance, as: :integer %><br />
-          </p>
-        <% else %>
-          <p>
-            Nombre d'heures par jour : <%= f.input :hours_per_day, as: :integer %><br />
-          </p>
-        <% end %>
-        <%= f.input :basis, label: "Base :", input_html: { value: @payslip.basis || 0 } %>
-        <%= f.submit %>
+
+  <div class="d-flex justify-content-between">
+
+    <div class="new_form m-0">
+      <h3><%= @payslip.job_profile %></h3>
+      <div class="pb-3">
+        <%= @payslip.artist? ? "Annexe 10 (artiste)" : "Annexe 8 (non-artiste)" %>
+        <%= @payslip.executive? ? "cadre" : "non-cadre" %>
       </div>
+      <%= simple_form_for(
+          @payslip,
+          url: company_payslip_url(@payslip.company, @payslip.id),
+          method: :patch,
+          html: { class: "row" }
+        ) do |f| %>
+          <%= f.input :contract_start,
+            label: "Début du contrat",
+            label_html: { class: " text-start"},
+            as: :date,
+            html5: true,
+            input_html: { value: @payslip.contract_start, class:"col-sm-2 col-form-label" }
+          %>
+          <%= f.input :contract_end,
+            label: "Fin du contrat",
+            label_html: { class: " text-start"},
+            as: :date, html5: true,
+            input_html: { value: @payslip.contract_end, class:"col-sm-2 col-form-label" }
+          %>
+          <p>Pour <strong><%= @payslip.performance.name %></strong> (<%= @payslip.performance.num_objet %>).</p>
+          <%= f.input :payment_date,
+            label: "Paiement le",
+            label_html: { class: " text-start"},
+            as: :date,
+            html5: true,
+            input_html: { value: @payslip.payment_date }
+          %>
+          <%= f.input :payment_id,
+            label: "via ",
+            label_html: { class: " text-start"},
+            input_html: { value: @payslip.payment_id }
+          %>
+          <% if @payslip.artist? %>
+            <%= f.input :number_of_rehearsal,
+              label: "Combien de services de répétition ?",
+              label_html: { class: " text-start"},
+              as: :integer
+            %><br />
+            <%= f.input :number_of_performance,
+              label: "Combien de représentations ?",
+              label_html: { class: " text-start"},
+              as: :integer
+            %><br />
+          <% else %>
+            <%= f.input :hours_per_day,
+              label: "Heures par jour",
+              label_html: { class: " text-start"},
+              input_html: { style: "width:50px;"},
+              as: :integer
+            %>
+          <% end %>
+          <%= f.input :basis, label: "Base :", input_html: { value: @payslip.basis || 0, style: "width:100px;" } %>
+
+        <%= f.submit %>
+      <% end %>
     </div>
-  <% end %>
+
+    <div>
+      <table class="table table-bordered black_border p-3">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="3" colspan="2">
+              <p>
+                Nombre de jours travaillés :
+                <strong>
+                  <%= @payslip.number_of_days %>
+                </strong>
+              </p>
+              <% if @payslip.artist? %>
+                <p>
+                  Combien de services de répétition ? : <%= @payslip.number_of_rehearsal %><br />
+                  Combien de représentations ? : <%= @payslip.number_of_performance %><br />
+                </p>
+              <% else %>
+                <p>
+                  Nombre d'heures par jour : <%= @payslip.hours_per_day %><br />
+                  Nombre d'heures total : <%= @payslip.number_of_hours %><br />
+                </p>
+              <% end %>
+            </th>
+            <th scope="col">Base</th>
+            <th colspan="4"></th>
+          </tr>
+          <tr>
+            <th><strong><%= sprintf("%.2f", @payslip.basis) if @payslip.basis.present? %></strong></th>
+            <th colspan="2">Part salariale</th>
+            <th colspan="2">Part patronale</th>
+            </tr>
+          <tr>
+            <th></th>
+            <th scope="col">Taux</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Taux</th>
+            <th scope="col">Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @payslip.contributions.each do |contribution| %>
+            <tr>
+              <td><%= contribution.fund %></td>
+              <td><%= contribution.name %></td>
+              <td><%= sprintf("%.2f", @payslip.basis)%></td>
+              <% if contribution.employee_part != 0 %>
+                <td><%= (contribution.employee_part*100).round(2) %>%</td>
+                <td><%= sprintf("%.2f",(contribution.employee_part*@payslip.basis).floor(2)) %></td>
+                <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+              <% if contribution.employer_part != 0 %>
+                <td><%= (contribution.employer_part*100).round(2) %>%</td>
+                <td><%= (contribution.employer_part*@payslip.basis).floor(2) %></td>
+                <% else %>
+                <td></td>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Totaux</td>
+            <td></td>
+            <td><strong><%= sprintf("%.2f",(@payslip.employee_s_contribution).floor(2)) %></strong></td>
+            <td></td>
+            <td><strong><%= sprintf("%.2f",(@payslip.employer_s_contribution).floor(2)) %></strong></td>
+          </tr>
+        </tbody>
+  </table>
+    </div>
+
+  </div>
 </div>
