@@ -6,6 +6,7 @@ class PayslipsController < ApplicationController
 
   def show
     @payslip = Payslip.find(params[:id])
+    @company = @payslip.company
   end
 
   def create

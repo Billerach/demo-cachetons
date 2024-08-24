@@ -1,60 +1,50 @@
-<div id="payslips_show_container">
-  <div class="payslips_show_header">
-    <h2>
-      <div class="payslips_show_header_title">Bulletin de paie n° <%= @payslip.payslip_number %></div>
-      <div class="payslips_show_header_name"><%= @payslip.employee.lastname %> <%= @payslip.employee.firstname %></div>
-    </h2>
+<div class="container">
+  <h2 class="page_title">
+    <%= "Bulletin de paie n° #{@payslip.payslip_number},
+      #{@payslip.employee.lastname} #{@payslip.employee.firstname}"
+      %>
+  </h2>
+  <div class="d-flex justify-content-center p-3">
+    <%= link_to "Modifier la fiche de paie", edit_company_payslip_url, class: "btn-flat me-3" %>
+    <% if @payslip.is_last_payslip? %>
+      <%= link_to "Supprimer cette fiche de paie",
+        company_payslip_path(@company, @payslip),
+        class: "btn-flat",
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "Supprimer cette fiche de paie ?"
+        }
+      %>
+    <% end %>
   </div>
-  <%= link_to "Modifier la fiche de paie", edit_company_payslip_url %>
-  <% if Payslip.where(employee: @payslip.employee.id).count == @payslip.payslip_number %>
-    <%= link_to "Supprimer cette fiche de paie",
-      company_payslip_path(@payslip.company, @payslip),
-      data: { turbo_method: :delete, turbo_confirm: "Supprimer cette fiche de paie ?" }
-    %>
-  <% end %>
-  <div class="payslips_show_infos">
-    <div class="payslips_show_infos_company">
-      <p>
-        Companie <%= @payslip.company.name %><br />
-        <%= @payslip.company.address %>
-      </p>
-      <p>Siret : <%= @payslip.company.siret %></p>
-      <p>Code APE : <%= @payslip.company.naf %></p>
+  <div class="d-flex justify-content-between p-3">
+    <div>
+      <p><%= @company.name %><br /><%= @company.address %></p>
+      <p>Siret : <%= @company.siret %></p>
+      <p>Code APE : <%= @company.naf %></p>
     </div>
-    <div class="payslips_show_infos_contract">
+    <div>
+      <p><%= @payslip.employee.firstname  %> <%= @payslip.employee.lastname.upcase %></p>
+      <p><%= @payslip.employee.address  %></p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between black_border_bottomless p-3">
+    <div>
+      <p>Emploi : <%= @payslip.job_profile %></p>
+      <p>Statut : <%= @payslip.executive? ? "Cadre" : "Non-cadre" %></p>
+      <p>N.I.R. : <%= @payslip.employee.NIR %></p>
+      <p>N° de Congés Spectacles : <%= @payslip.employee.conges_spectacles %></p>
+    </div>
+    <div>
       <p>Période du <%= @payslip.contract_start %> au <%= @payslip.contract_end %>.</p>
       <p>Règlement du <%= @payslip.payment_date %>. Réf. : <%= @payslip.payment_id %></p>
       <p>Numéro d'objet : <%= @payslip.performance.num_objet %>.</p>
     </div>
   </div>
-  <div class="payslips_show_infos_employee">
-    <div class="payslips_show_infos_employee_job_infos">
-      <p>
-        Emploi : <%= @payslip.job_profile %>
-      </p>
-      <p>
-        Statut : <%= @payslip.executive? ? "Cadre" : "Non-cadre" %>
-      </p>
-      <p>
-        N.I.R. : <%= @payslip.employee.NIR %>
-      </p>
-      <p>
-        N° de Congés Spectacles : <%= @payslip.employee.conges_spectacles %>
-      </p>
-    </div>
-    <div class="payslips_show_infos_employee_address">
-      <p>
-        <%= @payslip.employee.firstname  %> <%= @payslip.employee.lastname.upcase %>
-      </p>
-      <p>
-        <%= @payslip.employee.address  %>
-        </p>
-    </div>
-  </div>
-  <table class="payslips_show_table">
-    <tbody>
+  <table class="table table-bordered black_border p-3">
+    <thead>
       <tr>
-        <td rowspan="3" colspan="2">
+        <th scope="col" rowspan="3" colspan="2">
           <p>
             Nombre de jours travaillés :
             <strong>
@@ -72,22 +62,24 @@
               Nombre d'heures total : <%= @payslip.number_of_hours %><br />
             </p>
           <% end %>
-        </td>
-        <td>Base</td>
-        <td colspan="4"></td>
+        </th>
+        <th scope="col">Base</th>
+        <th colspan="4"></th>
       </tr>
       <tr>
-        <td><strong><%= sprintf("%.2f", @payslip.basis) if @payslip.basis.present? %></strong></td>
-        <td colspan="2">Part salariale</td>
-        <td colspan="2">Part patronale</td>
+        <th><strong><%= sprintf("%.2f", @payslip.basis) if @payslip.basis.present? %></strong></th>
+        <th colspan="2">Part salariale</th>
+        <th colspan="2">Part patronale</th>
         </tr>
       <tr>
-        <td></td>
-        <td>Taux</td>
-        <td>Montant</td>
-        <td>Taux</td>
-        <td>Montant</td>
+        <th></th>
+        <th scope="col">Taux</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Taux</th>
+        <th scope="col">Montant</th>
       </tr>
+    </thead>
+    <tbody>
       <% @payslip.contributions.each do |contribution| %>
         <tr>
           <td><%= contribution.fund %></td>
