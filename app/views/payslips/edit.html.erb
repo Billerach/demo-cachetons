@@ -7,7 +7,7 @@
 
   <div class="d-flex justify-content-between">
 
-    <div class="new_form m-0">
+    <div class="payslip_edit_form">
       <h3><%= @payslip.job_profile %></h3>
       <div class="pb-3">
         <%= @payslip.artist? ? "Annexe 10 (artiste)" : "Annexe 8 (non-artiste)" %>
@@ -16,8 +16,7 @@
       <%= simple_form_for(
           @payslip,
           url: company_payslip_url(@payslip.company, @payslip.id),
-          method: :patch,
-          html: { class: "row" }
+          method: :patch
         ) do |f| %>
           <%= f.input :contract_start,
             label: "Début du contrat",
@@ -60,13 +59,16 @@
             <%= f.input :hours_per_day,
               label: "Heures par jour",
               label_html: { class: " text-start"},
-              input_html: { style: "width:50px;"},
+              input_html: { class: "width100px"},
               as: :integer
             %>
           <% end %>
-          <%= f.input :basis, label: "Base :", input_html: { value: @payslip.basis || 0, style: "width:100px;" } %>
+          <%= f.input :basis,
+            label: "Base :",
+            label_html: { class: " text-start"},
+            input_html: { value: @payslip.basis || 0, class: "width200px" } %>
 
-        <%= f.submit %>
+        <%= f.button :submit, "Sauvegarder", class: "create_button" %>
       <% end %>
     </div>
 
