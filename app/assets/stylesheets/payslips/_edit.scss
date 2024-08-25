@@ -1,8 +1,22 @@
-.payslip_edit_form{
-  background-color:$grey250;
+.payslip_edit_container{
+  background-color: $grey250;
   border : 1px solid $grey200;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  tr{
+    line-height: 0.75rem;
+  }
+
+}
+
+.payslip_edit_form{
   padding:20px;
   color: $bleuvert;
   text-transform: uppercase;
   text-overflow: ellipsis;
+
+  label {
+    margin-top : 10px;
+  }
 }

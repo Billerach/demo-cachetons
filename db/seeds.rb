@@ -380,7 +380,7 @@ payslips[:artists].each_with_index do |employee_id, index|
     performance_id: payslips[:performance_id][index],
     hours_per_day: 8,
     number_of_days: 2,
-    executive: false,
+    executive: true,
     allowance: 1,
     basis: 212.00,
     basis_per_day: 106.00,
@@ -400,7 +400,7 @@ payslips[:artists].each_with_index do |employee_id, index|
     urssaf_limit_accumulation: 288.00,
     employer_cost_accumulation: 214.20,
     hours_accumulation: 12,
-    artist: false
+    artist: true
   )
 end
 

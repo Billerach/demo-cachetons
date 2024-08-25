@@ -29,7 +29,7 @@ class PayslipsController < ApplicationController
     @payslip = Payslip.find(params[:id])
     @payslip.update(payslip_update_params)
     payslip_data
-    redirect_to company_payslip_path(@payslip.company, @payslip)
+    redirect_to edit_company_payslip_url(@payslip.company, @payslip)
   end
 
   def destroy

@@ -8,7 +8,6 @@
 @import "font-awesome";
 
 // Your CSS partials
-@import "variables";
 @import "components/index";
 @import "pages/index";
 @import "companies/index";
@@ -38,6 +37,10 @@ ul{
 
 small {
   font-size: 0.75rem;
+}
+
+.not_so_small {
+  font-size: 0.85rem;
 }
 
 

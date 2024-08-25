@@ -1,0 +1,63 @@
+<%= simple_form_for(@payslip, url: company_payslip_url(@payslip.company, @payslip.id), method: :patch) do |f| %>
+  <%= f.input :contract_start,
+    label: "Début du contrat",
+    label_html: { class: "text-start" },
+    as: :date,
+    html5: true,
+    input_html: { value: @payslip.contract_start }
+  %>
+
+  <%= f.input :contract_end,
+    label: "Fin du contrat",
+    label_html: { class: " text-start"},
+    as: :date, html5: true,
+    input_html: { value: @payslip.contract_end }
+  %>
+
+  <p class="mt-3 mb-0">Pour <strong><%= @payslip.performance.name %></strong> (<%= @payslip.performance.num_objet %>).</p>
+
+  <%= f.input :payment_date,
+    label: "Paiement le",
+    label_html: { class: " text-start"},
+    as: :date,
+    html5: true,
+    input_html: { value: @payslip.payment_date }
+  %>
+
+  <%= f.input :payment_id,
+    label: "via ",
+    label_html: { class: " text-start"},
+    input_html: { value: @payslip.payment_id }
+  %>
+
+  <% if @payslip.artist? %>
+    <%= f.input :number_of_rehearsal,
+      label: "Combien de services de répétition ?",
+      label_html: { class: " text-start"},
+      input_html: { class: "width100px"},
+      as: :integer
+    %>
+    <br />
+    <%= f.input :number_of_performance,
+      label: "Combien de représentations ?",
+      label_html: { class: " text-start"},
+      input_html: { class: "width100px"},
+      as: :integer
+    %>
+    <br />
+  <% else %>
+    <%= f.input :hours_per_day,
+      label: "Heures par jour",
+      label_html: { class: " text-start"},
+      input_html: { class: "width100px"},
+      as: :integer
+    %>
+  <% end %>
+  <%= f.input :basis,
+    label: "Base :",
+    label_html: { class: " text-start"},
+    input_html: { value: @payslip.basis || 0, class: "width200px" }
+  %>
+
+  <%= f.button :submit, "Sauvegarder", class: "create_button" %>
+<% end %>
