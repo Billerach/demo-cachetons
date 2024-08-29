@@ -171,14 +171,8 @@ puts 'Employees created'
 
 puts 'Creating contributions'
 
-temp = Contribution.create!(
-  name: "312D Artistes : maladie, maternité, invalidité, décès, solidarité.",
-  fund: "URSSAF",
-  employee_part:0,
-  employer_part:0.094,
-  start_date: '2023-01-01',
-  end_date:  '2999-12-31'
-  )
+load Rails.root.join('db', 'seed_data', 'contributions_data.rb')
+@contributions.each { |contribution| Contribution.create!(contribution) }
 
 puts 'Contributions created'
 

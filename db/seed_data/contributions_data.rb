@@ -1,4 +1,4 @@
-contributions = [
+@contributions = [
   {
     name: "100D RG Base déplafonnée : maladie, maternité, invalidité, décès, solidarité",
     fund: "URSSAF",
