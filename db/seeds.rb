@@ -173,7 +173,7 @@ puts 'Creating contributions'
 
 load Rails.root.join('db', 'seed_data', 'contributions_data.rb')
 common_contributions = []
-@common_contributions.each { |c| common_contributions << Contribution.create!(c) }
+@common_contributions_array.each { |c| common_contributions << Contribution.create!(c) }
 
 puts 'Contributions created'
 
@@ -225,14 +225,23 @@ end
 
 jobs_list[:nartistsc].each do |job|
   JobProfile.create!(artist: false, executive: true, name: job)
+  common_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
 end
 
 jobs_list[:artistsnc].each do |job|
   JobProfile.create!(artist: true, executive: false, name: job)
+  common_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
 end
 
 jobs_list[:artistsc].each do |job|
   JobProfile.create!(artist: true, executive: true, name: job)
+  common_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
 end
 
 puts 'Job profiles created'

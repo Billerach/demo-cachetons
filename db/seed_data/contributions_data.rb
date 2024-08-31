@@ -1,4 +1,4 @@
-@common_contributions = [
+@common_contributions_array = [
   {
     fund: "URSSAF",
     start_date: '2023-01-01',
@@ -83,13 +83,126 @@
     fund: "Assurance chômage",
     start_date: '2023-01-01',
     end_date:  '2999-12-31',
+    name: "104 Assurance Chômage",
+    employee_part: 0.024,
+    employer_part: 0.0905,
+  },
+  {
+    fund: "Assurance chômage",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "301 AGS",
+    employee_part: 0,
+    employer_part: 0.0015,
+  },
+  {
+    fund: "Assurance chômage",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
     name: "125 CDD contrat d'usage de - de 3 mois",
     employee_part: 0,
     employer_part: 0.005,
   }
 ]
 
-@le_reste = [
+@non_artists_contributions_array[
+  {
+    name: "100D RG Base déplafonnée : maladie, maternité, invalidité, décès, solidarité",
+    fund: "URSSAF",
+    employee_part:0.0075,
+    employer_part:0.1319,
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31'
+  },
+  {
+    name: "100D RG Base déplafonnée : vieillesse + Cot. universelle pénibilité",
+    fund: "URSSAF",
+    employee_part:0.004,
+    employer_part:0.0191,
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31'
+  },
+  {
+    name: "100D RG Base déplafonnée : allocations familiales",
+    fund: "URSSAF",
+    employee_part:0,
+    employer_part:0.0345,
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31'
+  },
+  {
+    fund: "URSSAF",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "100A RG Accident du travail (code risque : 923AD)",
+    employee_part: 0,
+    employer_part: 0.016
+  },
+  {
+    fund: "URSSAF",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "100P RG Base plafonnée (vieillesse)",
+    employee_part: 0.069,
+    employer_part: 0.0855,
+  },
+  {
+    fund: "URSSAF",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "332P FNAL cas général et sect. public - de 20 salariés",
+    employee_part: 0,
+    employer_part: 0.001,
+  },
+]
+
+@n_artists_nc_contributions_array = [
+  {
+    fund: "AUDIENS",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "Retraite ARRCO non artiste non cadre Tranche A",
+    employee_part: 0.0387,
+    employer_part: 0.0388,
+  },
+  {
+    fund: "AUDIENS",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "Prévoyance non-cadre T1",
+    employee_part: 0,
+    employer_part: 0.0042,
+  }
+]
+
+@n_artists_c_contributions_array = [
+  {
+    fund: "AUDIENS",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "Retraite cadres Tranche 1",
+    employee_part: 0.0393,
+    employer_part: 0.0394,
+  },
+  {
+    fund: "AUDIENS",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "Prévoyance Cadre T1",
+    employee_part: 0,
+    employer_part: 0.0195,
+  },
+  {
+    fund: "AUDIENS",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "APEC",
+    employee_part: 0.00024,
+    employer_part: 0.00036,
+  }
+]
+
+@artists_contributions_array = [
   {
     name: "312D Artistes : maladie, maternité, invalidité, décès, solidarité.",
     fund: "URSSAF",
@@ -131,93 +244,16 @@
     employer_part: 0.0599,
   },
   {
-    name: "100D RG Base déplafonnée : maladie, maternité, invalidité, décès, solidarité",
-    fund: "URSSAF",
-    employee_part:0.0075,
-    employer_part:0.1319,
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31'
-  },
-  {
-    name: "100D RG Base déplafonnée : vieillesse + Cot. universelle pénibilité",
-    fund: "URSSAF",
-    employee_part:0.004,
-    employer_part:0.0191,
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31'
-  },
-  {
-    name: "100D RG Base déplafonnée : allocations familiales",
-    fund: "URSSAF",
-    employee_part:0,
-    employer_part:0.0345,
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31'
-  },
-  {
-    fund: "URSSAF",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "100A RG Accident du travail (code risque : 923AC)",
-    employee_part: 0,
-    employer_part: 0.0119
-  },
-  {
-    fund: "URSSAF",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "100P RG Base plafonnée (vieillesse)",
-    employee_part: 0.069,
-    employer_part: 0.0855,
-  },
-  {
-    fund: "URSSAF",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "332P FNAL cas général et sect. public - de 20 salariés",
-    employee_part: 0,
-    employer_part: 0.001,
-  },
-  {
     fund: "URSSAF",
     start_date: '2023-01-01',
     end_date:  '2999-12-31',
     name: "334P FNAL Artistes et médecins - de 20 salariés",
     employee_part: 0,
     employer_part: 0.0007,
-  },
-  {
-    fund: "Assurance chômage",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "104 Assurance Chômage",
-    employee_part: 0.048,
-    employer_part: 0.0855,
-  },
-  {
-    fund: "Assurance chômage",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "104 Assurance Chômage artistes",
-    employee_part: 0.024,
-    employer_part: 0.0905,
-  },
-  {
-    fund: "Assurance chômage",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "301 AGS",
-    employee_part: 0,
-    employer_part: 0.002,
-  },
-  {
-    fund: "Assurance chômage",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "301 AGS (artistes)",
-    employee_part: 0,
-    employer_part: 0.0015,
-  },
+  }
+]
+
+@artists_c_contributions_array = [
   {
     fund: "AUDIENS",
     start_date: '2023-01-01',
@@ -225,22 +261,6 @@
     name: "Retraite cadres Tranche 1",
     employee_part: 0.0393,
     employer_part: 0.0394,
-  },
-  {
-    fund: "AUDIENS",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "Retraite ARRCO non artiste non cadre Tranche A",
-    employee_part: 0.0387,
-    employer_part: 0.0388,
-  },
-  {
-    fund: "AUDIENS",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "Retraite ARRCO artiste non cadre Tranche A",
-    employee_part: 0.0437,
-    employer_part: 0.0438,
   },
   {
     fund: "AUDIENS",
@@ -254,9 +274,20 @@
     fund: "AUDIENS",
     start_date: '2023-01-01',
     end_date:  '2999-12-31',
-    name: "Prévoyance Cadre T1",
-    employee_part: 0,
-    employer_part: 0.0195,
+    name: "APEC",
+    employee_part: 0.00024,
+    employer_part: 0.00036,
+  }
+]
+
+@artists_nc_contributions_array = [
+  {
+    fund: "AUDIENS",
+    start_date: '2023-01-01',
+    end_date:  '2999-12-31',
+    name: "Retraite ARRCO artiste non cadre Tranche A",
+    employee_part: 0.0437,
+    employer_part: 0.0438,
   },
   {
     fund: "AUDIENS",
@@ -265,13 +296,5 @@
     name: "Prévoyance non-cadre T1",
     employee_part: 0,
     employer_part: 0.0042,
-  },
-  {
-    fund: "AUDIENS",
-    start_date: '2023-01-01',
-    end_date:  '2999-12-31',
-    name: "APEC",
-    employee_part: 0.00024,
-    employer_part: 0.00036,
   }
 ]
