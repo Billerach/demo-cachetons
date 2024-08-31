@@ -172,11 +172,12 @@ puts 'Employees created'
 puts 'Creating contributions'
 
 load Rails.root.join('db', 'seed_data', 'contributions_data.rb')
-@contributions.each { |contribution| Contribution.create!(contribution) }
+common_contributions = []
+@common_contributions.each { |c| common_contributions << Contribution.create!(c) }
 
 puts 'Contributions created'
 
-puts 'Creating job profiles'
+puts 'Creating job profiles and their links to contributions'
 
 jobs_list = {
   nartistsnc:[
@@ -216,7 +217,10 @@ jobs_list = {
 }
 
 jobs_list[:nartistsnc].each do |job|
-  JobProfile.create!(artist: false, executive: false, name: job)
+  job_profile = JobProfile.create!(artist: false, executive: false, name: job)
+  common_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
 end
 
 jobs_list[:nartistsc].each do |job|
@@ -232,15 +236,6 @@ jobs_list[:artistsc].each do |job|
 end
 
 puts 'Job profiles created'
-
-puts 'creating job profiles to contributions links'
-
-all_job_profiles = JobProfile.all
-all_job_profiles.each do |job_profile|
-  JobProfilesToContributionsLink.create!(job_profile:, contribution: temp)
-end
-
-puts 'job profiles to contributions links created'
 
 puts 'creating payslips'
 
