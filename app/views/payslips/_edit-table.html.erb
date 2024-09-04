@@ -1,12 +1,15 @@
 <table class="table table-bordered border border-black">
   <thead>
     <tr>
-      <th scope="col" rowspan="2">Cotisation</th>
+      <th scope="col">
+        <%= "Nombre de jours travaillés : #{@payslip.number_of_days}" %>
+      </th>
       <th scope="col" rowspan="2">Base</th>
       <th colspan="2">Part salariale</th>
       <th colspan="2">Part patronale</th>
     </tr>
     <tr>
+      <th scope="col">Cotisations</th>
       <th scope="col">Taux</th>
       <th scope="col">Montant</th>
       <th scope="col">Taux</th>

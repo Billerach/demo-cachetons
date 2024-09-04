@@ -52,7 +52,10 @@ class PayslipsController < ApplicationController
     @payslip.update(company: @company, employee: @employee, performance: @performance)
     @payslip.contract_start = payslip_params[:contract_start]
     @payslip.payslip_number = payslip_number_generator(@payslip.employee)
-    @job_profile.contributions.each { |contribution| @payslip.contribution << contribution }
+    @payslip.job_profile = @job_profile.name
+    @job_profile.contributions.each do |contribution|
+      PayslipsToContributionsLink.create!(payslip: @payslip, contribution:)
+    end
   end
 
   def payslip_params_hydratation
@@ -62,11 +65,11 @@ class PayslipsController < ApplicationController
   end
 
   def payslip_number_generator(employee)
-    test = Payslip.where(employee: employee.id).order(payslip_number: :desc).limit(1)[0]
-    if test.nil?
+    last_employee_payslip = Payslip.where(employee: employee.id).order(payslip_number: :desc).limit(1).first
+    if last_employee_payslip.payslip_number.nil?
       1
     else
-      test.payslip_number + 1
+      last_employee_payslip.payslip_number + 1
     end
   end
 

@@ -105,7 +105,7 @@
   }
 ]
 
-@non_artists_contributions_array[
+@non_artists_contributions_array = [
   {
     name: "100D RG Base déplafonnée : maladie, maternité, invalidité, décès, solidarité",
     fund: "URSSAF",

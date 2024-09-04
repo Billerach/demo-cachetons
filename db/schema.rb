@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_28_143615) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_04_192816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,16 +82,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_28_143615) do
     t.integer "number_of_days"
     t.boolean "executive"
     t.integer "allowance"
-    t.float "basis"
-    t.float "basis_per_day"
+    t.float "basis", default: 0.0
+    t.float "basis_per_day", default: 0.0
     t.float "allowance_basis"
-    t.integer "number_of_hours"
-    t.float "employer_s_contribution"
-    t.float "employee_s_contribution"
-    t.float "net_salary"
-    t.float "taxable_net"
-    t.float "urssaf_limit"
-    t.float "employer_cost"
+    t.integer "number_of_hours", default: 0
+    t.float "employer_s_contribution", default: 0.0
+    t.float "employee_s_contribution", default: 0.0
+    t.float "net_salary", default: 0.0
+    t.float "taxable_net", default: 0.0
+    t.float "urssaf_limit", default: 0.0
+    t.float "employer_cost", default: 0.0
     t.integer "number_of_performance", default: 0
     t.integer "number_of_rehearsal", default: 0
     t.float "gross_salary_accumulation"
