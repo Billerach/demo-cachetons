@@ -1,14 +1,10 @@
 <%= simple_form_for(@job_profile) do |f| %>
-  <h2>
-    <%= @job_profile.name %>
-  </h2>
   <%= link_to "Annuler", job_profiles_url %>
   <div>
+    <%= f.input :name, label: false %>
     <%= f.input :artist, label: "Artiste ?", as: :boolean %>
     <%= f.input :executive, label: "Cadre ?", as: :boolean %>
-    <% @contributions.each do |contribution| %>
-      <%= f.input :contributions_list, as: :boolean, label: contribution.name, input_html: { value: contribution.id, checked: @job_profile.contributions.include?(contribution) } %>
-    <% end %>
+    <%= f.association :contributions, as: :check_boxes, label_method: :name %>
   </div>
   <%= f.submit %>
 <% end %>

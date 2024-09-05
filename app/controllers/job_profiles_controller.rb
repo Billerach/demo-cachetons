@@ -46,18 +46,18 @@ class JobProfilesController < ApplicationController
     @job_profile = JobProfile.find(params[:id])
     job_profile_bool(job_profile_params)
     destroy_links
-    create_links(job_profile_params[:contributions_list])
+    create_links(job_profile_params[:contribution_ids])
     redirect_to @job_profile, notice: "#{@job_profile.name} mis à jour." if @job_profile.save
   end
 
   private
 
   def job_profile_params
-    params.require(:job_profile).permit(:name, :executive, :artist, contributions_list: [])
+    params.require(:job_profile).permit(:name, :executive, :artist, contribution_ids: [])
   end
 
   def create_links(list)
-    new_contributions_ids = list.map(&:to_i)
+    new_contributions_ids = list.select { |id| id.present?}
     @job_profile.contributions << Contribution.find(new_contributions_ids)
   end
 
