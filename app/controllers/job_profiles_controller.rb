@@ -19,7 +19,7 @@ class JobProfilesController < ApplicationController
     else
       @job_profile = JobProfile.create!(name: job_profile_params[:name])
       job_profile_bool(job_profile_params)
-      create_links(job_profile_params[:contributions_list])
+      create_links(job_profile_params[:contributions_ids])
       if @job_profile.save
         notice = 'Nouveau modèle créé'
       else
@@ -46,14 +46,14 @@ class JobProfilesController < ApplicationController
     @job_profile = JobProfile.find(params[:id])
     job_profile_bool(job_profile_params)
     destroy_links
-    create_links(job_profile_params[:contribution_ids])
+    create_links(job_profile_params[:contributions_ids])
     redirect_to @job_profile, notice: "#{@job_profile.name} mis à jour." if @job_profile.save
   end
 
   private
 
   def job_profile_params
-    params.require(:job_profile).permit(:name, :executive, :artist, contribution_ids: [])
+    params.require(:job_profile).permit(:name, :executive, :artist, contributions_ids: [])
   end
 
   def create_links(list)
@@ -70,7 +70,7 @@ class JobProfilesController < ApplicationController
   end
 
   def test_empty_needed_fields(fields)
-    fields[:contributions_list].nil? || fields[:name] == ''
+    fields[:contributions_ids].nil? || fields[:name] == ''
   end
 
   def job_profile_bool(bool)

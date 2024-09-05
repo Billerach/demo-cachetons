@@ -4,12 +4,31 @@
   <% else %>
     <% company = Company.find(params[:company_id].to_i) %>
   <% end %>
-  <h2><%= company.name %></h2>
-  <p>
+  <div data-controller="edit-company">
+    <h2><%= company.name %></h2>
+    <p><%= company.specialty.capitalize %></p>
     <strong>Siret : </strong>         <%= company.siret %><br />
     <strong>NAF : </strong>           <%= company.naf %><br />
     <strong>Adresse : </strong>       <%= company.address %><br />
     <strong>N° de License : </strong> <%= company.license_number %><br />
-  </p>
-    <%= link_to "Modifier les données de la structure", edit_company_url if params[:controller] == "companies" && params[:action] == "show" %>
+<%#class="d-none"%>
+    <%= simple_form_for @company do |f| %>
+      <%= f.input :name, label: false, input_html: { class: "height24px" } %>
+      <%= f.input :specialty, label: false, input_html: { class: "height24px" } %>
+      <div class="d-flex justify-content-between"><strong>Siret : </strong><%= f.input :siret, label: false, input_html: { class: "height24px"} %></div>
+      <div class="d-flex justify-content-between"><strong>NAF : </strong><%= f.input :naf, label: false, input_html: { class: "height24px" } %></div>
+      <div class="d-flex justify-content-between"><strong>Adresse : </strong><%= f.input :address, label: false, input_html: { class: "height24px" } %></div>
+      <div class="d-flex justify-content-between"><strong>N° de License : </strong><%= f.input :license_number, label: false, input_html: { class: "height24px" } %></div>
+      <%= f.button :submit %>
+    <% end %>
+
+    <% if params[:controller] == "companies" && params[:action] == "show" %>
+      <%= link_to "Modifier les données de la structure",
+        "",
+        data: {
+          action: "click->edit-company#edit"
+          }
+      %>
+    <% end %>
+  </div>
 </div>

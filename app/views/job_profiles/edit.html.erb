@@ -4,7 +4,11 @@
     <%= f.input :name, label: false %>
     <%= f.input :artist, label: "Artiste ?", as: :boolean %>
     <%= f.input :executive, label: "Cadre ?", as: :boolean %>
-    <%= f.association :contributions, as: :check_boxes, label_method: :name %>
+    <%= f.association :contributions,
+      as: :check_boxes,
+      label_method: :name,
+      input_html: { name: 'job_profile[contributions_ids][]' }
+    %>
   </div>
   <%= f.submit %>
 <% end %>
