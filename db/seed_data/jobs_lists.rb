@@ -20,6 +20,7 @@
 
 @artistsnc = [
     "Artiste lyrique",
+    "Artiste chanteur(euse)",
     "Musicien(ne)",
     "Artiste chorégraphe",
     "Artiste de variété",
@@ -33,5 +34,6 @@
     "Réalisateur/Réalisatrice costumes",
     "Réalisateur/Réalisatrice lumière",
     "Réalisateur/Réalisatrice son",
-    "Directeur/Directrice artistique"
+    "Directeur/Directrice artistique",
+    "Metteur(euse) en scène"
   ]

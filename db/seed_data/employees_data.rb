@@ -16,7 +16,7 @@
     firstname: 'Fabrice',
     lastname: 'Le Meunier',
     company_id: nil,
-    address: "8 allée des grands sages, 22300 Ploubezre",
+    address: "8 allée des grands sages, 22300 Plouberez",
     phone: '0785458326',
     NIR: '011100110001111',
     conges_spectacles: '12345678',

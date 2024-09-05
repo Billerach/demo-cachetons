@@ -49,9 +49,10 @@ puts 'Companies created'
 
 puts 'Creatings performances'
 
-p1 = Performance.create!(company_id: company1.id, name: 'To be', num_objet: '123Z68686634')
 p2 = Performance.create!(company_id: company2.id, name: 'La Déglingue', num_objet: '321Z68686635')
 p3 = Performance.create!(company_id: company1.id, name: 'Jeux de Pouvoirs', num_objet: '456Z68686661')
+
+Performance.create!(company_id: company1.id, name: 'To be', num_objet: '123Z68686634')
 Performance.create!(company_id: company1.id, name: 'Les Désossés', num_objet: '286Z68686628')
 Performance.create!(company_id: company1.id, name: 'Le silence des enfers', num_objet: '789Z68686613')
 Performance.create!(company_id: company1.id, name: 'Pli Pla Plou', num_objet: '147Z68686605')
@@ -144,46 +145,103 @@ puts 'Creating payslips'
 
 load Rails.root.join('db', 'seed_data', 'payslips_data.rb')
 
-payslip1 = Payslip.create!(company: company1, employee: employees[0], performance: p3)
-payslip1.update!(@payslip1)
-
-payslip2 = Payslip.create!(company: company2, employee: employees[7], performance: p2)
-payslip2.update!(@payslip2)
-
+payslips1to14 = []
 12.times do |i|
-  p = Payslip.create!(company: company1, employee: employees[0], performance: p3)
-  p.update!(payslip_number: i+2)
+  payslip = Payslip.create!(company: company1, employee: employees[0], performance: p3)
+  payslip.update!(payslip_number: i+2)
   if i < 8
-    p.update!(
+    payslip.update!(
       contract_start: "2024-0#{i+1}-01",
       contract_end: "2024-0#{i+1}-01",
       payment_date: "2024-0#{i+1}-01"
-      )
+    )
   else
-    p.update!(
+    payslip.update!(
       contract_start: "2024-#{i+1}-01",
       contract_end: "2024-#{i+1}-01",
       payment_date: "2024-#{i+1}-01"
-      )
+    )
   end
-  p.update!(@payslips_jean)
+  payslip.update!(@payslips_producer)
+  payslips1to14 << payslip
 end
+
+payslip13 = Payslip.create!(company: company1, employee: employees[0], performance: p3)
+payslip13.update!(@producer_payslip_september_festival)
+payslips1to14 << payslip13
+
+payslip14 = Payslip.create!(company: company2, employee: employees[7], performance: p2)
+payslip14.update!(@producer_payslip_october_tour)
+payslips1to14 << payslip14
+
+payslip15 = Payslip.create!(company: company1, employee: employees[1], performance: p3)
+payslip15.update!(@comedians_payslip_september_festival)
+
+payslip16 = Payslip.create!(company: company1, employee: employees[4], performance: p3)
+payslip16.update!(@comedians_payslip_september_festival)
+
+payslip17 = Payslip.create!(company: company2, employee: employees[5], performance: p2)
+payslip17.update!(@musician_payslip_october_tour)
+
+payslip18 = Payslip.create!(company: company2, employee: employees[6], performance: p2)
+payslip18.update!(@singer_payslip_october_tour)
+
+payslip19 = Payslip.create!(company: company1, employee: employees[3], performance: p3)
+payslip19.update!(@sound_manager_payslip_september_festival)
+
+payslip20 = Payslip.create!(company: company1, employee: employees[2], performance: p3)
+payslip20.update!(@director_payslip_september_festival)
 
 puts 'Payslips created'
 
 
 puts 'Creatings payslips to contributions links'
 
+# Everybody's contributions are here linked to everybody's payslips
 Payslip.all.each do |payslip|
   common_contributions.each do |contribution|
     PayslipsToContributionsLink.create!(payslip:, contribution:)
   end
+end
+
+# adding links for non-artist, non-executive employee
+payslips1to14.each do |payslip|
   non_artists_common_contributions.each do |contribution|
     PayslipsToContributionsLink.create!(payslip:, contribution:)
   end
   specific_nartistnc_contributions.each do |contribution|
     PayslipsToContributionsLink.create!(payslip:, contribution:)
   end
+end
+
+# adding links for non-artist, executive employee
+non_artists_common_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip19, contribution:)
+end
+specific_nartistc_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip19, contribution:)
+end
+
+# adding links for artist, non-executive employee
+artists_common_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip15, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip16, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip17, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip18, contribution:)
+end
+specific_artistnc_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip15, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip16, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip17, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip18, contribution:)
+end
+
+# adding links for artist, non-executive employee
+artists_common_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip20, contribution:)
+end
+specific_artistc_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip20, contribution:)
 end
 
 puts 'Payslips to contributions links created'
