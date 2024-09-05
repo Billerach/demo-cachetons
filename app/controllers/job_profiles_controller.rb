@@ -39,7 +39,7 @@ class JobProfilesController < ApplicationController
 
   def edit
     @job_profile = JobProfile.find(params[:id])
-    new
+    @contributions = Contribution.all
   end
 
   def update
