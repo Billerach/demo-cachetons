@@ -26,7 +26,7 @@ class CompaniesController < ApplicationController
   end
 
   def update
-    redirect_to @company, notice: 'Les données de la structure ont été mises à jour.' if @company.update(company_params)
+    redirect_to @company if @company.update(company_params)
   end
 
   def destroy
@@ -37,7 +37,7 @@ class CompaniesController < ApplicationController
   private
 
   def company_params
-    params.require(:company).permit(:name, :siret, :naf, :address, :license_number)
+    params.require(:company).permit(:name, :siret, :naf, :address, :license_number, :specialty)
   end
 
   def set_company
