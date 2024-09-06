@@ -7,7 +7,7 @@
   <div data-controller="edit-company">
     <div data-edit-company-target="storedCompanyData">
       <h2><%= company.name %></h2>
-      <p><%= company.specialty.capitalize %></p>
+      <p><%= company.specialty.capitalize if company.specialty.present? %></p>
       <strong>Siret : </strong>         <%= company.siret %><br />
       <strong>NAF : </strong>           <%= company.naf %><br />
       <strong>Adresse : </strong>       <%= company.address %><br />

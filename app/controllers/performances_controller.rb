@@ -7,7 +7,12 @@ class PerformancesController < ApplicationController
     if @performance.save
       redirect_to company_url(company)
     else
-      redirect_to company_url(company), alert: "Impossible d'ajouter l'employé'. Contactez le support."
+      if @performance.errors.full_messages.to_sentence == "Name has already been taken"
+        alert =  "Le spectacle existe déjà."
+      else
+        alert = "Impossible d'ajouter le spectacle. Contactez le support."
+      end
+      redirect_to company_url(company), alert:
     end
   end
 
