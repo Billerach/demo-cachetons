@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :companies, except: [:edit] do
     resources :payslips, except: [:new]
     resources :employees, except: [:index]
-    resources :performances, except: %i[index new show]
+    resources :performances, only: %i[create update destroy]
   end
 
   resources :job_profiles

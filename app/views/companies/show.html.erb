@@ -2,59 +2,40 @@
   <%= @company.name %>
 </h2>
 <h4>
-  <%= link_to "Fiches de paie", company_payslips_path(@company), id: "payslips_index_link" %>
+  <%= link_to "Fiches de paie",
+    company_payslips_path(@company),
+    id: "payslips_index_link"
+  %>
 </h4>
 
-<div id="company_show_performances_section" class="company_section">
+<div class="company_section">
   <h4>Les spectacles</h4>
-  <ul>
-    <% @company.performances.each do |performance| %>
-      <li class="performance_card">
-        <div class= "performance_card_button performance_card_edit">
-          <%= link_to edit_company_performance_path(@company, performance) do %>
-              <i class="fa-solid fa-pencil"></i>
-          <% end %>
-        </div>
-        <div class="performance_card_button performance_card_delete">
-          <%= link_to company_performance_url(@company, performance), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer #{performance.name} ?" } do %>
-            <i class="fa-solid fa-trash-can"></i>
-          <% end %>
-        </div>
-        <%= link_to company_payslips_path(@company, performance:) do %>
-          <%= image_tag "performances.jpg", alt: "Image affiche de #{performance.name}" %>
-          <div class="performance_card_infos">
-            <h5><%= performance.name %></h5>
-            <p><%= performance.num_objet %></p>
-            <p>
-              <% case performance.payslips.count %>
-              <% when 0 %>
-                Aucune fiche de paie
-              <% when 1 %>
-                1 fiche de paie
-              <% else %>
-                <%= "#{performance.payslips.count} fiches de paie" %>
-              <% end %>
-            </p>
-          </div>
-        <% end %>
-      </li>
-    <% end %>
+  <ul class="d-flex flex-wrap">
+    <%= render "performances" %>
     <li class="company_new_performance">
       <%= simple_form_for([@company, @performance]) do |f| %>
-        <%= f.input :name,      input_html: {placeholder: "Titre"}, label: false, required: true %>
-        <%= f.input :num_objet, input_html: {placeholder: "Numéro d'objet"}, label: false, required: true %>
+        <%= f.input :name,
+          input_html: {placeholder: "Titre"},
+          label: false,
+          required: true
+        %>
+        <%= f.input :num_objet,
+          input_html: {placeholder: "Numéro d'objet"},
+          label: false,
+          required: true
+        %>
         <%= f.button :submit, "Nouveau spectacle"%>
       <% end %>
     </li>
   </ul>
 </div>
 
-<div id="company_show_employees_section" class="company_section">
+<div class="company_section">
   <h4>Employés de la companie :</h4>
   <div class="d-flex justify-content-between">
     <ul>
       <% @company.employees.each do |employee| %>
-        <li>
+        <li class="m-4">
           <%= link_to employee.lastname_with_firstname, company_employee_path(@company, employee), class: "company_card" %>
         </li>
       <% end %>

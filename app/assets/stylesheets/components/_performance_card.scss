@@ -13,9 +13,7 @@
   }
 }
 
-.performance_card_button{
-  height: 0;
-  a{
+.grey_btn{
     position: relative;
     right: -161px;
     display: block;
@@ -27,21 +25,20 @@
     color: $grey150;
     text-align: center;
     background-color: $grey250;
-  }
 
-  a:hover{
+    &:hover{
     color: $grey250;
     transition: all 0.25s;
   }
+}
+
+.grey_btn_edit{
+  top:6px;
 
   i{
     position: relative;
-    top:3px;
+    top:1px;
   }
-}
-
-.performance_card_edit a{
-  top:6px;
 
   &:hover{
     border: 1px solid $bleuvert;
@@ -49,8 +46,13 @@
   }
 }
 
-.performance_card_delete a{
+.grey_btn_delete{
   top:160px;
+
+  i{
+    position: relative;
+    top:3px;
+  }
 
   &:hover{
     border: 1px solid $red;
