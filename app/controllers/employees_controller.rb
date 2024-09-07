@@ -12,7 +12,9 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to company_url(company)
     else
-      redirect_to company_url(company), alert: "Impossible d'ajouter l'employé'. Contactez le support."
+      raise
+      alert = "Impossible d'ajouter l'employé'. Raison : #{@employee.errors.full_messages.to_sentence}."
+      redirect_to company_url(company), alert:
     end
   end
 
@@ -63,4 +65,3 @@ class EmployeesController < ApplicationController
     )
   end
 end
-

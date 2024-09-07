@@ -33,42 +33,37 @@
 
 <div class="company_section">
   <h4>Employés de la companie :</h4>
-  <div class="d-flex justify-content-between">
-    <ul>
-      <% @company.employees.each do |employee| %>
-        <li class="m-4">
-          <%= link_to employee.lastname_with_firstname, company_employee_path(@company, employee), class: "company_card" %>
-        </li>
-      <% end %>
+  <div class="row">
+    <ul class="col-md-6 col-lg-8">
+        <% @company.employees.each do |employee| %>
+          <li class="d-inline-block">
+            <%= link_to employee.lastname_with_firstname,
+              company_employee_path(@company, employee),
+              class: "line_height_53px company_card"
+            %>
+          </li>
+        <% end %>
     </ul>
-    <div class="new_form light_shadow_box m-0">
-      <%= simple_form_for([@company, @employee]) do |f| %>
-        <%= f.input :firstname,            input_html: {placeholder: 'Prénom'}, label: false, required: true %>
-        <%= f.input :lastname,             input_html: {placeholder: 'Nom'}, label: false, required: true %>
-        <%= f.input :address,              input_html: {placeholder: 'Adresse'}, label: false, required: true %>
-        <%= f.input :phone,                input_html: {placeholder: 'N° de téléphone'}, label: false, required: true %>
-        <%= f.input :phone_2,              input_html: {placeholder: 'Autre N° de téléphone'}, label: false, required: false %>
-        <%= f.input :NIR,                  input_html: {placeholder: 'N° de sécurité sociale'}, label: false, required: true %>
-        <%= f.input :conges_spectacles,    input_html: {placeholder: 'N° de congés spectacles'}, label: false, required: false %>
-        <%= f.label :date_of_birth, "Date de naissance" %>
-        <%= f.date_field :date_of_birth,   input_html: {placeholder: 'Date de naissance'}, label: false, required: true %>
-        <%= f.input :place_of_birth,       input_html: {placeholder: 'Lieu de naissance'}, label: false, required: true %>
-        <%= f.input :departement_of_birth, input_html: {placeholder: 'Département de naissance'}, label: false, required: false %>
-        <%= f.input :country_of_birth,     input_html: {placeholder: 'Pays de naissance'}, label: false, required: true %>
-        <%= f.button :submit, "Nouvel employé" %>
-      <% end %>
+    <div class="new_form light_shadow_box m-0 col-md-6 col-lg-4">
+      <%= render "new_employee_form"%>
     </div>
   </div>
 </div>
 
 <div class="company_section">
   <h4>
-    <%= link_to "Supprimer la structure",
-                company_path(@company),
-                data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "!!! ATTENTION !!!\n#{@company.name} et TOUS LES SPECTACLES ET FICHES DE PAIE QUI Y SONT LIÉE seront DÉFINITIVEMENT SUPPRIMÉS."
-                }
+    <%= link_to company_path(@company),
+      data: { turbo_method: :delete, turbo_confirm: "
+        !!! ATTENTION !!!\n
+        #{@company.name.upcase}\n
+        et toutes ses données seront supprimées.\n
+        Cette action est irréversible !"
+      } do
     %>
+      <h4 class="text-danger">
+        Supprimer <%= @company.name %>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </h4>
+    <% end %>
 </h4>
 </div>

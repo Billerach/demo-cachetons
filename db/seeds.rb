@@ -73,6 +73,22 @@ load Rails.root.join('db', 'seed_data', 'employees_data.rb')
 employees = []
 @employees.each { |e| employees << Employee.create!(e) }
 
+20.times do
+  Employee.create!(
+    firstname: 'TEST',
+    lastname: 'TEST',
+    company_id: company2.id,
+    address: "TEST",
+    phone: 'TEST',
+    NIR: 'TEST',
+    conges_spectacles: 'TEST',
+    date_of_birth: Date.new(1951, 11, 2),
+    place_of_birth: 'TEST',
+    departement_of_birth: 'TEST',
+    country_of_birth: 'TEST'
+  )
+end
+
 puts 'Employees created'
 
 
