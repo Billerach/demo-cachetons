@@ -10,7 +10,8 @@
 
 <div class="company_section">
   <h4>Les spectacles</h4>
-  <ul class="d-flex flex-wrap">
+  <ul
+    class="d-flex flex-wrap">
     <%= render "performances" %>
     <li class="company_new_performance">
       <%= simple_form_for([@company, @performance]) do |f| %>

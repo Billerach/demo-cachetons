@@ -6,8 +6,7 @@ export default class extends Controller {
 
   edit() {
     this.editPerformanceFormTarget.classList.remove("d-none");
-    this.editPerformanceButtonTarget.classList.add("d-none");
-    this.editPerformanceContainer.insertAdjacentHTML(
+    this.editPerformanceContainerTarget.insertAdjacentHTML(
       "beforeEnd",
       "<div class='blackout'>",
     );
