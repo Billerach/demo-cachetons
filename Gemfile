@@ -76,3 +76,5 @@ group :test do
 end
 
 gem "countries", "~> 6.0"
+gem 'cloudinary'
+
