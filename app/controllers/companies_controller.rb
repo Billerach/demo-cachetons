@@ -23,7 +23,6 @@ class CompaniesController < ApplicationController
     @employee = Employee.new(company: @company)
     @performance = Performance.new(company: @company)
     @departments = FrenchDepartments.new.get
-    @countries = ISO3166::Country.all.map! { |country| country.iso_short_name }
   end
 
   def edit

@@ -43,9 +43,11 @@
     include_blank: false
   %>
   <%= f.label "Pays de naissance :", class: "not_so_small" %>
-  <%= f.input :country_of_birth, collection: @countries,
+  <%= f.input :country_of_birth, collection: countries_for_select,
     label: false,
     required: true
   %>
-  <%= f.button :submit, "Nouvel employé" %>
+  <div class="d-flex justify-content-center">
+    <%= f.button :submit, "Nouvel employé", class: "btn create_button"%>
+</div>
 <% end%>
