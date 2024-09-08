@@ -42,13 +42,10 @@
     required: false,
     include_blank: false
   %>
-
-  <div class="mt-2">
-    <%= f.label "Pays de naissance :", class: "not_so_small" %>
-    <%= f.input :country_of_birth, collection: @countries,
-      required: true,
-      label: false
-    %>
-  </div>
+  <%= f.label "Pays de naissance :", class: "not_so_small" %>
+  <%= f.input :country_of_birth, collection: @countries,
+    label: false,
+    required: true
+  %>
   <%= f.button :submit, "Nouvel employé" %>
 <% end%>

@@ -23,8 +23,7 @@ class CompaniesController < ApplicationController
     @employee = Employee.new(company: @company)
     @performance = Performance.new(company: @company)
     @departments = FrenchDepartments.new.get
-    @countries = countries_for_select
-    raise
+    @countries = ISO3166::Country.all.map! { |country| country.iso_short_name }
   end
 
   def edit
@@ -47,12 +46,5 @@ class CompaniesController < ApplicationController
 
   def set_company
     @company = Company.find(params[:id])
-  end
-
-  def countries_for_select
-    # countries = ISO3166::Country.all.map! { |country| [country.translations[I18n.locale.to_s], country.alpha2] }
-    countries = ISO3166::Country.all.map! { |country| country.translations[I18n.locale.to_s] }
-    raise
-    countries.sort_by! { |country| country[0] }
   end
 end

@@ -16,7 +16,6 @@ class Employee < ApplicationRecord
   validates :NIR,               presence: true
   validates :date_of_birth,     presence: true
   validates :place_of_birth,    presence: true
-  validates :country_of_birth,  presence: true
   validates :company,           presence: true
 
   def lastname_with_firstname
