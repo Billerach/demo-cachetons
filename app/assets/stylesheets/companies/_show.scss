@@ -49,4 +49,13 @@
   }
 }
 
-#company_show_employees_section li{margin: 20px;}
+.new_performance_picture i{
+  line-height: 200px;
+  font-size: 120px;
+  color: $grey200-opacity25;
+}
+
+.new_performance_submit{
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}

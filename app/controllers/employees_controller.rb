@@ -2,6 +2,7 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = Employee.find(params[:id])
+    @company = Company.find(params[:company_id])
   end
 
   def create

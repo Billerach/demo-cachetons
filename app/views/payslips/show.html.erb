@@ -1,8 +1,6 @@
 <div class="container">
   <h2 class="page_title">
-    <%= "Bulletin de paie n° #{@payslip.payslip_number},
-      #{@payslip.employee.lastname} #{@payslip.employee.firstname}"
-      %>
+    <%="Bulletin de paie n° #{@payslip.payslip_number}, #{@payslip.employee.lastname_with_firstname}" %>
   </h2>
   <div class="d-flex justify-content-center p-3">
     <%= link_to "Modifier la fiche de paie", edit_company_payslip_url, class: "btn-flat me-3" %>

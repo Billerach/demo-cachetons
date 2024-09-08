@@ -13,19 +13,22 @@
   <ul
     class="d-flex flex-wrap">
     <%= render "performances" %>
-    <li class="company_new_performance">
+    <li class="performance_card">
+      <div class="new_performance_picture text-center">
+        <i class="fa-regular fa-file"></i>
+      </div>
       <%= simple_form_for([@company, @performance]) do |f| %>
         <%= f.input :name,
-          input_html: {placeholder: "Titre"},
+          input_html: {placeholder: "Titre", class: "m-2 width92p100"},
           label: false,
           required: true
         %>
         <%= f.input :num_objet,
-          input_html: {placeholder: "Numéro d'objet"},
+          input_html: {placeholder: "Numéro d'objet", class: "m-2 width92p100"},
           label: false,
           required: true
         %>
-        <%= f.button :submit, "Nouveau spectacle"%>
+        <%= f.button :submit, "Nouveau spectacle", class: "new_performance_submit create_button m-2 width92p100" %>
       <% end %>
     </li>
   </ul>

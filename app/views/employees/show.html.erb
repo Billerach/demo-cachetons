@@ -1,0 +1,31 @@
+<div class="container">
+  <h2 class="page_title"><%= @employee.lastname_with_firstname %></h2>
+  <div>
+    <ul>
+      <li>Date de naissance : <%= @employee.date_of_birth %></li>
+      <li>Lieu de naissance : <%= @employee.place_of_birth %></li>
+      <li> <%= "Département de naissance : #{@employee.departement_of_birth}" if @employee.departement_of_birth.present? %></li>
+      <li>Pays de naissance : <%= @employee.country_of_birth %></li>
+      <li>Adresse : <%= @employee.address %></li>
+      <li>
+        Téléphone(s) : <%= @employee.phone %>
+        <%= ", #{@employee.phone_2}" if @employee.phone_2.present? %>
+      </li>
+      <li>Sécurité Sociale : <%= @employee.NIR %></li>
+      <li>Congés Spectacle : <%= @employee.conges_spectacles %></li>
+    </ul>
+    <ul>
+      <% @employee.payslips.each do |payslip| %>
+        <li class="payslip_card"><%= "Du #{payslip.contract_start} au #{payslip.contract_end} pour #{payslip.performance.name}" %></li>
+      <% end %>
+    </ul>
+
+    <%= link_to "Supprimer", company_employee_url, data: {
+      turbo_method: :delete,
+      turbo_confirm: "Êtes-vous sûr de vouloir supprimer les données de #{@employee.lastname_with_firstname} ?"
+      } %>
+
+    <%= link_to "Modifier les données de l'employé", edit_company_employee_url %>
+
+  </div>
+</div>
