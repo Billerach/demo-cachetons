@@ -45,6 +45,7 @@ class JobProfilesController < ApplicationController
   def update
     @job_profile = JobProfile.find(params[:id])
     job_profile_bool(job_profile_params)
+    @job_profile.name = job_profile_params[:name]
     destroy_links
     create_links(job_profile_params[:contributions_ids])
     redirect_to @job_profile, notice: "#{@job_profile.name} mis à jour." if @job_profile.save

@@ -8,6 +8,7 @@
 class Employee < ApplicationRecord
   has_many :payslips
   belongs_to :company
+  has_one_attached :photo
 
   validates :firstname,         presence: true
   validates :lastname,          presence: true

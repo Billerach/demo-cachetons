@@ -14,7 +14,7 @@
     class="d-flex flex-wrap">
     <%= render "performances" %>
     <li class="performance_card">
-      <div class="new_performance_picture text-center">
+      <div class="missing_picture text-center">
         <i class="fa-regular fa-file"></i>
       </div>
       <%= simple_form_for([@company, @performance]) do |f| %>
@@ -40,11 +40,15 @@
   <div class="row">
     <ul class="col-md-6 col-lg-8">
         <% @company.employees.each do |employee| %>
-          <li class="d-inline-block">
-            <%= link_to employee.lastname_with_firstname,
-              company_employee_path(@company, employee),
-              class: "line_height_53px company_card"
-            %>
+          <li class="d-inline-block employee_card">
+            <%= link_to company_employee_path(@company, employee) do %>
+              <% if employee.photo.attached? %>
+                <%= cl_image_tag employee.photo.key, height: 200, width: 200, crop: :fill %>
+              <% else %>
+                <div class="missing_picture text-center"><i class="fa-solid fa-user"></i></div>
+              <% end %>
+              <div class="line_height_53px text-center"><%= employee.lastname_with_firstname %></div>
+            <% end %>
           </li>
         <% end %>
     </ul>

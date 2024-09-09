@@ -26,7 +26,7 @@
     country_of_birth: 'France'
   },
   {
-    firstname: 'Mamadou',
+    firstname: 'Thomas',
     lastname: 'Cissoko',
     company_id: nil,
     address: "34 rue des Deux Chouettes, 35000 Rennes",
@@ -39,19 +39,6 @@
     country_of_birth: 'Mali'
   },
   {
-    firstname: 'Luc',
-    lastname: 'Mosebacke',
-    company_id: nil,
-    address: '32 passage de la coline, 25660 Montfaucon',
-    phone: '0698798798',
-    NIR: '555445554445544',
-    conges_spectacles: '45645645',
-    date_of_birth: Date.new(1962, 9, 12),
-    place_of_birth: 'Villedieu',
-    departement_of_birth: '84',
-    country_of_birth: 'France'
-  },
-  {
     firstname: 'Aline',
     lastname: 'Berthet',
     company_id: nil,
@@ -62,6 +49,19 @@
     date_of_birth: Date.new(2000, 1, 2),
     place_of_birth: 'Châlon-sur-Saône',
     departement_of_birth: '71',
+    country_of_birth: 'France'
+  },
+  {
+    firstname: 'Luc',
+    lastname: 'Mosebacke',
+    company_id: nil,
+    address: '32 passage de la coline, 25660 Montfaucon',
+    phone: '0698798798',
+    NIR: '555445554445544',
+    conges_spectacles: '45645645',
+    date_of_birth: Date.new(1962, 9, 12),
+    place_of_birth: 'Villedieu',
+    departement_of_birth: '84',
     country_of_birth: 'France'
   },
   {

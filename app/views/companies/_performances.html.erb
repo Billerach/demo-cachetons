@@ -1,5 +1,8 @@
 <% @company.performances.each do |performance| %>
   <li class="performance_card">
+
+    <%# performance edit button %>
+
     <div class="height0" data-controller="edit-performance" data-edit-performance-target="editPerformanceContainer">
       <button class="grey_btn grey_btn_edit"
         data-action="click->edit-performance#edit"
@@ -8,12 +11,7 @@
       </button>
       <div data-edit-performance-target="editPerformanceForm"
         class="d-none new_form new_form_absolute new_company_form_position">
-        <%= simple_form_for(
-          performance,
-          url: company_performance_url(@company, performance),
-          method: :patch
-          ) do |f|
-        %>
+        <%= simple_form_for(performance, url: company_performance_url(@company, performance), method: :patch) do |f| %>
           <%= f.input :name, label: false, required: true %>
           <%= f.input :num_objet, label: false, required: true %>
           <%= f.input :picture, as: :file %>
@@ -21,22 +19,27 @@
         <% end %>
       </div>
     </div>
+
+    <%# performance delete button %>
+
     <div class="height0">
       <%= link_to company_performance_url(@company, performance),
-        class: "grey_btn grey_btn_delete",
-        data: {
+        class: "grey_btn grey_btn_delete", data: {
           turbo_method: :delete,
           turbo_confirm: "Êtes-vous sûr de vouloir supprimer #{performance.name} ?"
-        } do
+          } do
       %>
         <i class="fa-solid fa-trash-can"></i>
       <% end %>
     </div>
+
+    <%# performance card itself %>
+
     <%= link_to company_payslips_path(@company, performance:) do %>
       <% if performance.picture.attached? %>
         <%= cl_image_tag performance.picture.key, height: 200, width: 200, crop: :fill %>
       <% else %>
-        <%= image_tag "performances.jpg", alt: "Image affiche de #{performance.name}" %>
+        <div class="missing_picture text-center"><i class="fa-regular fa-image"></i></div>
       <% end %>
       <div class="performance_card_infos">
         <h5><%= performance.name %></h5>

@@ -62,7 +62,8 @@ class EmployeesController < ApplicationController
       :date_of_birth,
       :place_of_birth,
       :departement_of_birth,
-      :country_of_birth
+      :country_of_birth,
+      :photo
     )
   end
 end

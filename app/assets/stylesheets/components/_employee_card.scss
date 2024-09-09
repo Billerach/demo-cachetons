@@ -1,0 +1,13 @@
+.employee_card{
+  margin:10px;
+  width: 200px;
+  border : 1px solid $grey200;
+  background-color:$grey250;
+  border-radius: 7px;
+  box-shadow: 1px 1px 5px 1px $grey200-opacity25;
+  overflow: hidden;
+
+  a{
+    color:rgb(46, 163, 157);
+  }
+}

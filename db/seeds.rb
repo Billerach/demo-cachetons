@@ -50,42 +50,38 @@ puts 'Companies created'
 
 puts 'Creatings performances'
 
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837624/Ruan_Jia_Nocturne_obhxkc.jpg").open
-p1 = Performance.create!(company_id: company1.id, name: 'To be', num_objet: '123Z68686634')
-p1.picture.attach(io: file, filename: "performance1.jpg", content_type: "image/jpg")
+perf_pict_urls = [
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917660/affiche1_dafipc.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725918329/affiche2_q4whyx.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725918708/affiche3_webmw9.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725918329/affiche4_zsbf5b.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725919363/affiche5_jmx2c8.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725919429/affiche6_iv7qhv.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725920151/zik1_pgsfe7.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725920151/zik2_vldmmt.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725920152/zik3_dawpq6.jpg"
+]
 
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837601/Final_Fantasy_modif_AQL_ydacxl.jpg").open
-p2 = Performance.create!(company_id: company2.id, name: 'La Déglingue', num_objet: '321Z68686635')
-p2.picture.attach(io: file, filename: "performance2.jpg", content_type: "image/jpg")
+perf_data = [
+  {company_id: company1.id, name: 'To be', num_objet: '123Z68686634'},
+  {company_id: company1.id, name: 'Jeux de Pouvoirs', num_objet: '456Z68686661'},
+  {company_id: company1.id, name: 'Les Désossés', num_objet: '286Z68686628'},
+  {company_id: company1.id, name: 'Le silence des enfers', num_objet: '789Z68686613'},
+  {company_id: company1.id, name: 'Pli Pla Plou', num_objet: '147Z68686605'},
+  {company_id: company1.id, name: 'Cuillère', num_objet: '285Z68686601'},
+  {company_id: company2.id, name: 'La Déglingue', num_objet: '321Z68686635'},
+  {company_id: company2.id, name: 'Nulle Part', num_objet: '369Z68686689'},
+  {company_id: company2.id, name: 'Affections Angulaires', num_objet: '987Z68686111'}
+]
 
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837600/Exordium_mciyso.jpg").open
+perf_pict_urls.each_with_index do |p, i|
+  file = URI.parse(p).open
+  performance = Performance.create!(perf_data[i])
+  performance.picture.attach(io: file, filename: "performance#{i+1}.jpg", content_type: "image/jpg")
+end
 
-p3 = Performance.create!(company_id: company1.id, name: 'Jeux de Pouvoirs', num_objet: '456Z68686661')
-p3.picture.attach(io: file, filename: "performance3.jpg", content_type: "image/jpg")
-
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837600/Eve_WP29_1600_r9bcqa.jpg").open
-p4 = Performance.create!(company_id: company1.id, name: 'Les Désossés', num_objet: '286Z68686628')
-p4.picture.attach(io: file, filename: "performance4.jpg", content_type: "image/jpg")
-
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837599/Eve_WP28_1600_trlm4x.jpg").open
-p5 = Performance.create!(company_id: company1.id, name: 'Le silence des enfers', num_objet: '789Z68686613')
-p5.picture.attach(io: file, filename: "performance5.jpg", content_type: "image/jpg")
-
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837599/Eve_WP27_1600_lx57s2.jpg").open
-p6 = Performance.create!(company_id: company1.id, name: 'Pli Pla Plou', num_objet: '147Z68686605')
-p6.picture.attach(io: file, filename: "performance6.jpg", content_type: "image/jpg")
-
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837599/Eve_WP26_1600_u6osd8.jpg").open
-p7 = Performance.create!(company_id: company1.id, name: 'Cuillère', num_objet: '285Z68686601')
-p7.picture.attach(io: file, filename: "performance7.jpg", content_type: "image/jpg")
-
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837580/c-bebop2_ffzcdd.jpg").open
-p8 = Performance.create!(company_id: company2.id, name: 'Nulle Part', num_objet: '369Z68686689')
-p8.picture.attach(io: file, filename: "performance8.jpg", content_type: "image/jpg")
-
-file = URI.parse("https://res.cloudinary.com/daqtghh5t/image/upload/v1725837598/Eve_Online_aqp4t5.jpg").open
-p9 = Performance.create!(company_id: company2.id, name: 'Affections Angulaires', num_objet: '987Z68686111')
-p9.picture.attach(io: file, filename: "performance9.jpg", content_type: "image/jpg")
+perf1 = Performance.all[1]
+perf2 = Performance.all[6]
 
 puts 'Performances created'
 
@@ -97,24 +93,37 @@ load Rails.root.join('db', 'seed_data', 'employees_data.rb')
 @employees[0..4].each { |e| e[:company_id] = company1.id}
 @employees[5..7].each { |e| e[:company_id] = company2.id}
 
-employees = []
-@employees.each { |e| employees << Employee.create!(e) }
+employees_photos_urls = [
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/jean_utcws3.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/fabrice_yiijqh.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/thomas_wsvmpr.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/aline_b1bvtt.jpg"
+]
 
-20.times do
-  Employee.create!(
-    firstname: 'TEST',
-    lastname: 'TEST',
-    company_id: company2.id,
-    address: "TEST",
-    phone: 'TEST',
-    NIR: 'TEST',
-    conges_spectacles: 'TEST',
-    date_of_birth: Date.new(1951, 11, 2),
-    place_of_birth: 'TEST',
-    departement_of_birth: 'TEST',
-    country_of_birth: 'TEST'
-  )
+employees = []
+employees_photos_urls.each_with_index do |url,index|
+  file = URI.parse(url).open
+  employees << employee = Employee.create!(@employees[index])
+  employee.photo.attach(io: file, filename: "employee#{index+1}.jpg", content_type: "image/jpg" )
 end
+
+employee = Employee.create!(@employees[4])
+employees << employee
+
+employee = Employee.create!(@employees[5])
+employees << employee
+
+file = URI.parse(employees_photos_urls[2]).open
+employee = Employee.create!(@employees[6])
+employee.photo.attach(io: file, filename: "employee6.jpg", content_type: "image/jpg" )
+employees << employee
+
+file = URI.parse(employees_photos_urls[0]).open
+employee = Employee.create!(@employees[7])
+employee.photo.attach(io: file, filename: "employee7.jpg", content_type: "image/jpg" )
+employees << employee
+
+
 
 puts 'Employees created'
 
@@ -190,7 +199,7 @@ load Rails.root.join('db', 'seed_data', 'payslips_data.rb')
 
 payslips1to14 = []
 12.times do |i|
-  payslip = Payslip.create!(company: company1, employee: employees[0], performance: p3)
+  payslip = Payslip.create!(company: company1, employee: employees[0], performance: perf2)
   payslip.update!(payslip_number: i+2)
   if i < 8
     payslip.update!(
@@ -209,30 +218,30 @@ payslips1to14 = []
   payslips1to14 << payslip
 end
 
-payslip13 = Payslip.create!(company: company1, employee: employees[0], performance: p3)
+payslip13 = Payslip.create!(company: company1, employee: employees[0], performance: perf2)
 payslip13.update!(@producer_payslip_september_festival)
 payslips1to14 << payslip13
 
-payslip14 = Payslip.create!(company: company2, employee: employees[7], performance: p2)
+payslip14 = Payslip.create!(company: company2, employee: employees[7], performance: perf1)
 payslip14.update!(@producer_payslip_october_tour)
 payslips1to14 << payslip14
 
-payslip15 = Payslip.create!(company: company1, employee: employees[1], performance: p3)
+payslip15 = Payslip.create!(company: company1, employee: employees[1], performance: perf2)
 payslip15.update!(@comedians_payslip_september_festival)
 
-payslip16 = Payslip.create!(company: company1, employee: employees[4], performance: p3)
+payslip16 = Payslip.create!(company: company1, employee: employees[4], performance: perf2)
 payslip16.update!(@comedians_payslip_september_festival)
 
-payslip17 = Payslip.create!(company: company2, employee: employees[5], performance: p2)
+payslip17 = Payslip.create!(company: company2, employee: employees[5], performance: perf1)
 payslip17.update!(@musician_payslip_october_tour)
 
-payslip18 = Payslip.create!(company: company2, employee: employees[6], performance: p2)
+payslip18 = Payslip.create!(company: company2, employee: employees[6], performance: perf1)
 payslip18.update!(@singer_payslip_october_tour)
 
-payslip19 = Payslip.create!(company: company1, employee: employees[3], performance: p3)
+payslip19 = Payslip.create!(company: company1, employee: employees[3], performance: perf2)
 payslip19.update!(@sound_manager_payslip_september_festival)
 
-payslip20 = Payslip.create!(company: company1, employee: employees[2], performance: p3)
+payslip20 = Payslip.create!(company: company1, employee: employees[2], performance: perf2)
 payslip20.update!(@director_payslip_september_festival)
 
 puts 'Payslips created'

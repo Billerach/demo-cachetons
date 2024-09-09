@@ -47,6 +47,9 @@
     label: false,
     required: true
   %>
+
+  <%= f.input :photo, as: :file, label: false, required: false %>
+
   <div class="d-flex justify-content-center">
     <%= f.button :submit, "Nouvel employé", class: "btn create_button"%>
 </div>
