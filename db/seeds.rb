@@ -113,7 +113,7 @@ employees << employee
 employee = Employee.create!(@employees[5])
 employees << employee
 
-file = URI.parse(employees_photos_urls[2]).open
+file = URI.parse(employees_photos_urls[3]).open
 employee = Employee.create!(@employees[6])
 employee.photo.attach(io: file, filename: "employee6.jpg", content_type: "image/jpg" )
 employees << employee
