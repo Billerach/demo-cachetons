@@ -81,7 +81,7 @@ perf_pict_urls.each_with_index do |p, i|
 end
 
 perf1 = Performance.all[1]
-perf2 = Performance.all[6]
+perf2 = Performance.all[7]
 
 puts 'Performances created'
 

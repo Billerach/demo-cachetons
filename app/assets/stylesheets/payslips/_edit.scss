@@ -3,11 +3,6 @@
   border : 1px solid $grey200;
   display: grid;
   grid-template-columns: 1fr 2fr;
-
-  tr{
-    line-height: 0.75rem;
-  }
-
 }
 
 .payslip_edit_form{
