@@ -5,24 +5,15 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = Company.all
-    @company = Company.new
   end
 
   def create
     @company = Company.new(company_params)
-    if @company.save
-      redirect_to companies_path, notice: "Structure ajoutée"
-    else
-      @companies = Company.all
-      render :index, status: :unprocessable_entity
-    end
+    @company.save ? notice = "Structure ajoutée" : notice = "même nom qu'une structure existante"
+    redirect_to companies_path, notice:
   end
 
   def show
-    @performances = Performance.where(company: @company)
-    @employee = Employee.new(company: @company)
-    @performance = Performance.new(company: @company)
-    @departments = FrenchDepartments.new.get
   end
 
   def edit
@@ -41,6 +32,10 @@ class CompaniesController < ApplicationController
 
   def company_params
     params.require(:company).permit(:name, :siret, :naf, :address, :license_number, :specialty)
+  end
+
+  def get_company
+    @company = Company.find(params[:id])
   end
 
   def set_company

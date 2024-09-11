@@ -199,7 +199,7 @@ load Rails.root.join('db', 'seed_data', 'payslips_data.rb')
 
 payslips1to14 = []
 12.times do |i|
-  payslip = Payslip.create!(company: company1, employee: employees[0], performance: perf2)
+  payslip = Payslip.create!(company: company1, employee: employees[0], performance: perf1)
   payslip.update!(payslip_number: i+2)
   if i < 8
     payslip.update!(
@@ -218,30 +218,30 @@ payslips1to14 = []
   payslips1to14 << payslip
 end
 
-payslip13 = Payslip.create!(company: company1, employee: employees[0], performance: perf2)
+payslip13 = Payslip.create!(company: company1, employee: employees[0], performance: perf1)
 payslip13.update!(@producer_payslip_september_festival)
 payslips1to14 << payslip13
 
-payslip14 = Payslip.create!(company: company2, employee: employees[7], performance: perf1)
+payslip14 = Payslip.create!(company: company2, employee: employees[7], performance: perf2)
 payslip14.update!(@producer_payslip_october_tour)
 payslips1to14 << payslip14
 
-payslip15 = Payslip.create!(company: company1, employee: employees[1], performance: perf2)
+payslip15 = Payslip.create!(company: company1, employee: employees[1], performance: perf1)
 payslip15.update!(@comedians_payslip_september_festival)
 
-payslip16 = Payslip.create!(company: company1, employee: employees[4], performance: perf2)
+payslip16 = Payslip.create!(company: company1, employee: employees[4], performance: perf1)
 payslip16.update!(@comedians_payslip_september_festival)
 
-payslip17 = Payslip.create!(company: company2, employee: employees[5], performance: perf1)
+payslip17 = Payslip.create!(company: company2, employee: employees[5], performance: perf2)
 payslip17.update!(@musician_payslip_october_tour)
 
-payslip18 = Payslip.create!(company: company2, employee: employees[6], performance: perf1)
+payslip18 = Payslip.create!(company: company2, employee: employees[6], performance: perf2)
 payslip18.update!(@singer_payslip_october_tour)
 
-payslip19 = Payslip.create!(company: company1, employee: employees[3], performance: perf2)
+payslip19 = Payslip.create!(company: company1, employee: employees[3], performance: perf1)
 payslip19.update!(@sound_manager_payslip_september_festival)
 
-payslip20 = Payslip.create!(company: company1, employee: employees[2], performance: perf2)
+payslip20 = Payslip.create!(company: company1, employee: employees[2], performance: perf1)
 payslip20.update!(@director_payslip_september_festival)
 
 puts 'Payslips created'

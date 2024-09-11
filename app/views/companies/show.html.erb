@@ -17,7 +17,7 @@
       <div class="missing_picture text-center">
         <i class="fa-regular fa-file"></i>
       </div>
-      <%= simple_form_for([@company, @performance]) do |f| %>
+      <%= simple_form_for([@company, Performance.new(company: @company)]) do |f| %>
         <%= f.input :name,
           input_html: {placeholder: "Titre", class: "m-2 width92p100"},
           label: false,

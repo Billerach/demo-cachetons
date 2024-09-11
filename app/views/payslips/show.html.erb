@@ -3,7 +3,7 @@
     <%="Bulletin de paie n° #{@payslip.payslip_number}, #{@payslip.employee.lastname_with_firstname}" %>
   </h2>
   <div class="d-flex justify-content-center p-3">
-    <%= link_to "Modifier la fiche de paie", edit_company_payslip_url, class: "btn-flat me-3" %>
+    <%= link_to "Modifier la fiche de paie", edit_company_payslip_path, class: "btn-flat me-3" %>
     <% if @payslip.is_last_payslip? %>
       <%= link_to "Supprimer cette fiche de paie",
         company_payslip_path(@company, @payslip),

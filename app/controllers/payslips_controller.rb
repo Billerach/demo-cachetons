@@ -1,11 +1,11 @@
 class PayslipsController < ApplicationController
+  before_action :set_payslip, only: [:show,:edit,:update,:destroy]
   def index
-    @payslips = set_payslips
+    @payslips = payslips_request
     @company = Company.find(params[:company_id])
   end
 
   def show
-    @payslip = Payslip.find(params[:id])
     @company = @payslip.company
   end
 
@@ -21,19 +21,17 @@ class PayslipsController < ApplicationController
   end
 
   def edit
-    @payslip = Payslip.find(params[:id])
+    @company = Company.find(params[:company_id])
     job_profile_load(@payslip.job_profile, @payslip) if @payslip.job_profile.to_i != 0
   end
 
   def update
-    @payslip = Payslip.find(params[:id])
     @payslip.update(payslip_update_params)
     payslip_data
     redirect_to edit_company_payslip_url(@payslip.company, @payslip)
   end
 
   def destroy
-    @payslip = Payslip.find(params[:id])
     @payslip.payslips_to_contributions_links.destroy_all
     @payslip.destroy
     notice_content = "#{@payslip.employee.firstname} #{@payslip.employee.lastname} n°#{@payslip.payslip_number}"
@@ -44,7 +42,20 @@ class PayslipsController < ApplicationController
   private
 
   def payslip_params
-    params.require(:payslip).permit(:employee_id, :performance_id, :contract_start, :job_profile)
+    params.require(:payslip).permit(:company_id, :employee_id, :performance_id, :contract_start, :job_profile)
+  end
+
+  def set_payslip
+    @payslip = Payslip.find(params[:id])
+  end
+
+  def payslips_request
+    if params[:performance]
+      request = { company_id: params[:company_id], performance_id: params[:performance] }
+    else
+      request = { company_id: params[:company_id] }
+    end
+    Payslip.where(request)
   end
 
   def payslip_creation
@@ -71,16 +82,6 @@ class PayslipsController < ApplicationController
     else
       last_employee_payslip.payslip_number + 1
     end
-  end
-
-  def set_payslips
-    if params[:performance]
-      request = { company_id: params[:company_id], performance_id: params[:performance] }
-    else
-      request = { company_id: params[:company_id] }
-    end
-
-    Payslip.where(request)
   end
 
   def payslip_update_params

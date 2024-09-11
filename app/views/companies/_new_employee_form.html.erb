@@ -1,4 +1,4 @@
-<%= simple_form_for([@company, @employee]) do |f| %>
+<%= simple_form_for([@company, Employee.new(company: @company)]) do |f| %>
   <%= f.input :firstname,
     input_html: {placeholder: 'Prénom', class: "mt-2 ps-1"},
     label: false, required: true
@@ -36,7 +36,7 @@
     input_html: {placeholder: 'Lieu de naissance', class: "mt-2 ps-1"},
     label: false, required: true
   %>
-  <%= f.input :departement_of_birth, collection: @departments,
+  <%= f.input :departement_of_birth, collection: FrenchDepartments.new.get,
     input_html: {placeholder: 'Département de naissance', class: "mt-2 ps-1"},
     label: false,
     required: false,
