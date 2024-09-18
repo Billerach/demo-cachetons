@@ -5,7 +5,15 @@ export default class extends Controller {
   static targets = ["closeNoticeButton"]
 
   close() {
-    this.closeNoticeButtonTarget.remove();
-    document.querySelector(".blackout").remove();
+
+    if (this.hasCloseNoticeButtonTarget) {
+      this.closeNoticeButtonTarget.remove();
+    }
+
+    const blackoutElement = document.querySelector(".blackout");
+    if (blackoutElement) {
+      blackoutElement.remove();
+    }
+
   }
 }

@@ -1,4 +1,4 @@
-<%= simple_form_for([@company, Employee.new(company: @company)]) do |f| %>
+<%= simple_form_for(([@company, @employee]), method: :patch) do |f| %>
   <%= f.input :firstname,
     input_html: {placeholder: 'Prénom*', class: "mt-2 ps-1"},
     label: false, required: true
@@ -50,6 +50,6 @@
   <%= f.input :photo, as: :file, label: false, required: false %>
 
   <div class="d-flex justify-content-center">
-    <%= f.button :submit, "Nouvel employé", class: "btn create_button"%>
-</div>
+    <%= f.button :submit, "Sauvegarder", class: "btn create_button"%>
+  </div>
 <% end%>
