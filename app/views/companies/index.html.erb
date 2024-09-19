@@ -5,8 +5,8 @@
       <div id="new_company_btn" data-controller="add-company" data-add-company-target="newCompanyContainer">
         <button data-action="click->add-company#add" data-add-company-target="addCompanyButton" class="new_button">+</button>
         <div data-add-company-target="addCompanyForm" class="d-none new_form new_form_absolute new_company_form_position">
-          <div>
-            <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-3"></i>
+          <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel">
+            <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-3 cancel_hover"></i>
           </div>
           <%= simple_form_for(Company.new) do |f| %>
             <%= f.input :name, label: "Nom" %>

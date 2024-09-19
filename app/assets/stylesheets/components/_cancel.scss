@@ -1,0 +1,16 @@
+.cancel_hover{
+  transition: all 0.25s;
+
+  &:hover{
+    color : $light-bleuvert
+  }
+
+}
+.cancel_hover_white{
+  transition: all 0.25s;
+
+  &:hover{
+    color : white
+  }
+
+}

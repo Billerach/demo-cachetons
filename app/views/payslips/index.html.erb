@@ -4,6 +4,9 @@
     <div data-controller="add-payslip" data-add-payslip-target="newPayslipContainer">
       <button data-action="click->add-payslip#add" data-add-payslip-target="addPayslipButton" class="new_button">+</button>
       <div data-add-payslip-target="addPayslipForm" class="d-none new_form new_form_absolute new_payslip_form_position">
+        <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel">
+          <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-3 cancel_hover"></i>
+        </div>
         <%= simple_form_for Payslip.new, url: company_payslips_path(@company), data: {turbo_method: :post} do |f| %>
           <%= f.input :employee_id, label: "Nouvelle fiche de paie pour :", collection: @company.employees.distinct, label_method: :lastname_with_firstname, value_method: :id, include_blank: false %>
           <%= f.input :job_profile, label: ", en tant que :", collection: JobProfile.all, label_method: :name, value_method: :id, include_blank: false %>

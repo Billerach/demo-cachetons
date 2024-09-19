@@ -12,6 +12,9 @@
       </button>
       <div data-edit-performance-target="editPerformanceForm"
         class="d-none new_form new_form_absolute new_company_form_position">
+        <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel">
+          <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-1 cancel_hover"></i>
+        </div>
         <%= simple_form_for(performance, url: company_performance_url(@company, performance), method: :patch) do |f| %>
           <%= f.input :name, label: false, required: true %>
           <%= f.input :num_objet, label: false, required: true %>
