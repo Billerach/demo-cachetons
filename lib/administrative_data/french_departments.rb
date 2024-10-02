@@ -1,6 +1,6 @@
 module AdministrativeData
   class FrenchDepartments
-    def get
+    def self.get
       [
         "01 - Ain",
         "02 - Aisne",

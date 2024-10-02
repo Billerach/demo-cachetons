@@ -37,7 +37,7 @@
     label: false, required: true
   %>
   <%= f.input :departement_of_birth,
-    collection: AdministrativeData::FrenchDepartments.new.get,
+    collection: AdministrativeData::FrenchDepartments.get,
     input_html: {placeholder: 'Département de naissance', class: "mt-2 ps-1"},
     label: false,
     required: false
