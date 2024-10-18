@@ -1,0 +1,55 @@
+<%= simple_form_for(([@company, @employee]), method: :patch) do |f| %>
+  <%= f.input :firstname,
+    input_html: {placeholder: 'Prénom*', class: "mt-2 ps-1"},
+    label: false, required: true
+  %>
+  <%= f.input :lastname,
+    input_html: {placeholder: 'Nom*', class: "mt-2 ps-1"},
+    label: false, required: true
+  %>
+  <%= f.input :address,
+    input_html: {placeholder: 'Adresse*', class: "mt-2 ps-1"},
+    label: false, required: true
+  %>
+  <%= f.input :phone,
+    input_html: {placeholder: 'N° de téléphone*', class: "mt-2 ps-1"},
+    label: false, required: true
+  %>
+  <%= f.input :phone_2,
+    input_html: {placeholder: 'Autre N° de téléphone', class: "mt-2 ps-1"},
+    label: false, required: false
+  %>
+  <%= f.input :NIR,
+    input_html: {placeholder: 'N° de sécurité sociale*', class: "mt-2 ps-1"},
+    label: false, required: true
+  %>
+  <%= f.input :conges_spectacles,
+    input_html: {placeholder: 'N° de congés spectacles', class: "mt-2 ps-1"},
+    label: false, required: false
+  %>
+  <%= f.label "Date de naissance* :", class: "mt-3 not_so_small" %>
+  <%= f.date_field :date_of_birth,
+    class: "mt-2 ps-1",
+    label: false, required: true
+  %>
+  <%= f.input :place_of_birth,
+    input_html: {placeholder: 'Lieu de naissance*', class: "mt-2 ps-1"},
+    label: false, required: true
+  %>
+  <%= f.input :departement_of_birth, collection: AdministrativeData::FrenchDepartments.get,
+    input_html: {placeholder: 'Département de naissance', class: "mt-2 ps-1"},
+    label: false,
+    required: false
+  %>
+  <%= f.label "Pays de naissance* :", class: "not_so_small" %>
+  <%= f.input :country_of_birth, collection: countries_for_select,
+    label: false,
+    required: true
+  %>
+
+  <%= f.input :photo, as: :file, label: false, required: false %>
+
+  <div class="d-flex justify-content-center">
+    <%= f.button :submit, "Sauvegarder", class: "btn create_button"%>
+  </div>
+<% end%>

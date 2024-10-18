@@ -1,5 +1,5 @@
 <% if notice %>
-  <div class="notice_container" data-controller="notice"  data-action="click->notice#close" data-notice-target="closeNoticeButton">
+  <div class="notice_container" data-controller="notice" data-action="click->notice#close" data-notice-target="closeNoticeButton">
     <div class="notice" role="notification utilisateur" >
       <%= notice %>
     </div>
@@ -7,9 +7,10 @@
   </div>
 <% end %>
 <% if alert %>
-  <div class="alert" role="alerte utilisateur">
-    <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
+  <div class="alert_container" data-controller="alert" data-action="click->alert#close" data-alert-target="closeAlertButton">
+    <div class="not_a_bs_class_alert" role="alerte utilisateur">
+      <%= alert %>
+    </div>
+    <div class="blackout"></div>
   </div>
 <% end %>

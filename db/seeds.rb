@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-
-# require 'open-uri'
+require "open-uri"
 
 puts 'Destroy payslips to contributions links'
 PayslipsToContributionsLink.destroy_all
@@ -33,7 +32,7 @@ company1 = Company.create!(
   name: 'Les cantonniers de Corcové',
   siret: '123 568 941 00056',
   naf: '90.01Z',
-  address: '3 rue dugenou, 44156 Pâté-sur-mer',
+  address: '3 rue du gnou, 44156 Pâté-sur-mer',
   license_number: '1076958',
   specialty: 'troupe de théâtre'
 )
@@ -45,351 +44,256 @@ company2 = Company.create!(
   license_number: '1076598',
   specialty: 'groupe de musique'
 )
-company3 = Company.create!(
-  name: 'Les illusionnés du bocal',
-  siret: '125 741 258 00963',
-  naf: '90.01Z',
-  address: 'ZI La bellevie, 92125 Industrielle-sur-Oise',
-  license_number: '1078552',
-  specialty: 'companie de danse'
-)
 
 puts 'Companies created'
 
+
 puts 'Creatings performances'
 
-p1 = Performance.create!(company_id: company1.id, name: 'To be',             num_objet: '123Z68686634')
-p2 = Performance.create!(company_id: company2.id, name: 'La Déglingue',      num_objet: '321Z68686635')
-p3 = Performance.create!(company_id: company3.id, name: 'Mais oui mais non', num_objet: '741Z68686147')
+perf_pict_urls = [
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917660/affiche1_dafipc.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725918329/affiche2_q4whyx.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725918708/affiche3_webmw9.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725918329/affiche4_zsbf5b.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725919363/affiche5_jmx2c8.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725919429/affiche6_iv7qhv.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725920151/zik1_pgsfe7.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725920151/zik2_vldmmt.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725920152/zik3_dawpq6.jpg"
+]
 
-Performance.create!(company_id: company1.id, name: 'Jeux de Pouvoirs',               num_objet: '456Z68686661')
-Performance.create!(company_id: company1.id, name: 'Les Désossés',                   num_objet: '286Z68686628')
-Performance.create!(company_id: company1.id, name: 'Martine chez les bonnes soeurs', num_objet: '789Z68686613')
-Performance.create!(company_id: company1.id, name: 'Pli Pla Plou',                   num_objet: '147Z68686605')
-Performance.create!(company_id: company1.id, name: 'Partout',                        num_objet: '285Z68686601')
-Performance.create!(company_id: company2.id, name: 'Nulle Part Ici',                 num_objet: '369Z68686689')
-Performance.create!(company_id: company2.id, name: 'Duvel et des pelles',            num_objet: '654Z68686477')
-Performance.create!(company_id: company2.id, name: 'Paroles !',                      num_objet: '987Z68686111')
-Performance.create!(company_id: company3.id, name: "Sans dec'",                      num_objet: '159Z68686789')
-Performance.create!(company_id: company3.id, name: 'Le Grand Barzingue',             num_objet: '296Z68686456')
+perf_data = [
+  {company_id: company1.id, name: 'To be', num_objet: '123Z68686634'},
+  {company_id: company1.id, name: 'Jeux de Pouvoirs', num_objet: '456Z68686661'},
+  {company_id: company1.id, name: 'Les Désossés', num_objet: '286Z68686628'},
+  {company_id: company1.id, name: 'Le silence des enfers', num_objet: '789Z68686613'},
+  {company_id: company1.id, name: 'Pli Pla Plou', num_objet: '147Z68686605'},
+  {company_id: company1.id, name: 'Cuillère', num_objet: '285Z68686601'},
+  {company_id: company2.id, name: 'La Déglingue', num_objet: '321Z68686635'},
+  {company_id: company2.id, name: 'Nulle Part', num_objet: '369Z68686689'},
+  {company_id: company2.id, name: 'Affections Angulaires', num_objet: '987Z68686111'}
+]
+
+perf_pict_urls.each_with_index do |p, i|
+  file = URI.parse(p).open
+  performance = Performance.create!(perf_data[i])
+  performance.picture.attach(io: file, filename: "performance#{i+1}.jpg", content_type: "image/jpg")
+end
+
+perf1 = Performance.all[1]
+perf2 = Performance.all[7]
 
 puts 'Performances created'
 
+
 puts 'Creating employees'
 
-jean_mich = Employee.create!(
-  firstname: 'Jean-Mich',
-  lastname: 'Wallouhoualla',
-  company_id: company1.id,
-  address: '142 rue du Cotentin, 44000 Nantes',
-  phone: '0642457895',
-  NIR: '185021708565428',
-  conges_spectacles: '98746421',
-  date_of_birth: Date.new(1981, 5, 28),
-  place_of_birth: 'Pétaouchnok',
-  departement_of_birth: '28',
-  country_of_birth: 'France'
-)
-fabrice = Employee.create!(
-  firstname: 'Fabrice',
-  lastname: 'Le Meunier',
-  company_id: company2.id,
-  address: "8 allée des grands sages, 29400 Ploumeuneuc'h",
-  phone: '0785458326',
-  NIR: '011100110001111',
-  conges_spectacles: '12345678',
-  date_of_birth: Date.new(1951, 11, 2),
-  place_of_birth: 'Montreuil',
-  departement_of_birth: '63',
-  country_of_birth: 'France'
-)
-mamadou = Employee.create!(
-  firstname: 'Mamadou',
-  lastname: 'Cissoko',
-  company_id: company3.id,
-  address: "34 rue de l'Ouganda, 35000 Rennes",
-  phone: '0788556699',
-  NIR: '336633663336633',
-  conges_spectacles: '85285285',
-  date_of_birth: Date.new(1992, 10, 5),
-  place_of_birth: 'Bamako',
-  departement_of_birth: '',
-  country_of_birth: 'Mali'
-)
-luke = Employee.create!(
-  firstname: 'Luke',
-  lastname: 'Skywalker',
-  company_id: company1.id,
-  address: '32 passage du trou, 25060 Montcuq',
-  phone: '0698798798',
-  NIR: '555445554445544',
-  conges_spectacles: '45645645',
-  date_of_birth: Date.new(1962, 9, 12),
-  place_of_birth: 'Villedieu-Les-Poêles-sur-Saône',
-  departement_of_birth: '77',
-  country_of_birth: 'France'
-)
-albert = Employee.create!(
-  firstname: 'Albert',
-  lastname: 'de la Grenouillères des Andes',
-  company_id: company2.id,
-  address: '366 place des monuments aux vétérans, 55800 Argenton-le-Pont',
-  phone: '0685789445',
-  NIR: '225413584684585',
-  conges_spectacles: '12312531',
-  date_of_birth: Date.new(2000, 1, 2),
-  place_of_birth: 'Châlon-sur-Saône',
-  departement_of_birth: '28',
-  country_of_birth: 'France'
-)
-luke2 = Employee.create!(
-  firstname: 'Luke',
-  lastname: 'Skywalker',
-  company_id: company3.id,
-  address: '32 passage du trou, 25060 Montcuq',
-  phone: '0698798798',
-  NIR: '555445554445544',
-  conges_spectacles: '45645645',
-  date_of_birth: Date.new(1962, 9, 12),
-  place_of_birth: 'Villedieu-Les-Poêles-sur-Saône',
-  departement_of_birth: '77',
-  country_of_birth: 'France'
-)
-albert2 = Employee.create!(
-  firstname: 'Albert',
-  lastname: 'de la Grenouillères des Andes',
-  company_id: company3.id,
-  address: '366 place des monuments aux vétérans, 55800 Argenton-le-Pont',
-  phone: '0685789445',
-  NIR: '225413584684585',
-  conges_spectacles: '12312531',
-  date_of_birth: Date.new(2000, 1, 2),
-  place_of_birth: 'Châlon-sur-Saône',
-  departement_of_birth: '28',
-  country_of_birth: 'France'
-)
+load Rails.root.join('db', 'seed_data', 'employees_data.rb')
+
+@employees[0..4].each { |e| e[:company_id] = company1.id}
+@employees[5..7].each { |e| e[:company_id] = company2.id}
+
+employees_photos_urls = [
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/jean_utcws3.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/fabrice_yiijqh.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/thomas_wsvmpr.jpg",
+  "https://res.cloudinary.com/daqtghh5t/image/upload/v1725917124/aline_b1bvtt.jpg"
+]
+
+employees = []
+employees_photos_urls.each_with_index do |url,index|
+  file = URI.parse(url).open
+  employees << employee = Employee.create!(@employees[index])
+  employee.photo.attach(io: file, filename: "employee#{index+1}.jpg", content_type: "image/jpg" )
+end
+
+employee = Employee.create!(@employees[4])
+employees << employee
+
+employee = Employee.create!(@employees[5])
+employees << employee
+
+file = URI.parse(employees_photos_urls[3]).open
+employee = Employee.create!(@employees[6])
+employee.photo.attach(io: file, filename: "employee6.jpg", content_type: "image/jpg" )
+employees << employee
+
+file = URI.parse(employees_photos_urls[0]).open
+employee = Employee.create!(@employees[7])
+employee.photo.attach(io: file, filename: "employee7.jpg", content_type: "image/jpg" )
+employees << employee
+
+
 
 puts 'Employees created'
 
+
 puts 'Creating contributions'
 
-used_contributions = {
-  fund: [
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'Assedic',
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'Audiens',
-    'Audiens',
-    'Audiens',
-    'Audiens',
-    'CMB',
-    'URSSAF',
-    'URSSAF',
-    'FNAS',
-    'FCAP'
-  ],
-  name: [
-    '100 RG Base déplafonnée :  maladie, maternité, invalidité, décès, solidarité.',
-    '100D RG Base déplafonnée : allocations familiales.',
-    '100P RG Base plafonnée (vieillesse).',
-    'CSG déductible.',
-    "104 Assur. Chômage + 125 CDD contrat d'usage de - de 3 mois.",
-    '312D Artistes : vieillesse.',
-    '312A Artistes Accident du travail (code risque : 923AC).',
-    '334P FNAL Artistes et médecins - de 20 salariés.',
-    'Retraite ARRCO artiste non cadre Tranche A.',
-    'Retraite ARRCO non artiste non cadre Tranche A.',
-    'Prévoyance Artiste NC T1.',
-    'Prévoyance NC T1.',
-    'Médecine du travail (+ TVA à 20%).',
-    '671P Réduction Fillon Base plafonnée.',
-    '027D Contribution au dialogue social',
-    "Fond National d'Activités Sociales des entreprises artistiques et culturelles.",
-    "Fond Commun d'Aide au Paritarisme"
-  ],
-  employee_part: [0, 0, 0.069, 0.068, 0.0335, 0.0028, 0, 0, 0.0437, 0.0387, 0, 0, 0, 0, 0, 0, 0],
-  employer_part: [0.133, 0.03450, 0.08550, 0, 0.09551, 0.01331, 0.01191, 0.00071, 0.04380, 0.03880,
-                  0.00420, 0.00420, 0.00381, 0.28090, 0.0001, 0.01251, 0.00251],
-  start_date: '2023-01-01',
-  end_date: '2023-12-31'
-}
+load Rails.root.join('db', 'seed_data', 'contributions_data.rb')
+common_contributions = []
+artists_common_contributions = []
+non_artists_common_contributions = []
+specific_nartistnc_contributions = []
+specific_nartistc_contributions = []
+specific_artistnc_contributions = []
+specific_artistc_contributions = []
 
-used_contributions_array = []
-used_contributions[:fund].each_with_index do |fund, index|
-  used_contributions_array << Contribution.create!(
-    fund:,
-    name: used_contributions[:name][index],
-    employee_part: used_contributions[:employee_part][index],
-    employer_part: used_contributions[:employer_part][index],
-    start_date: used_contributions[:start_date],
-    end_date: used_contributions[:end_date]
-  )
-end
-
-unused_contributions = {
-  fund: [
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'URSSAF',
-    'Assedic',
-    'Audiens',
-    'Audiens',
-    'Audiens',
-    'CS',
-    'AFDAS',
-    'Audiens',
-    'URSSAF',
-    'AUDIENS',
-    'AUDIENS'
-  ],
-  name: [
-    '100D RG Base déplafonnée : vieillesse',
-    '100A RG Accident du travail (code risque : 923AD).',
-    '332P FNAL cas général et sect. public - de 20 salariés.',
-    'CSG/CRDS imposable.',
-    '312D Artistes :  maladie, maternité, invalidité, décès, solidarité.',
-    '312D Artistes : allocations familiales.',
-    '312P Artistes vieillesse.',
-    '301 AGS.',
-    'Retraite ARRCO cadres Tranche A + APEC',
-    'AGFF Tranche A (ARRCO).',
-    'Prévoyance Artiste Cadre T1.',
-    'Congés Spectacles.',
-    'Congés Formation (+ TVA à 20%).',
-    'CET Tranche A.',
-    '100A RG Accident du travail (code risque : 923AD).',
-    'Garantie minimale de points (GMP)',
-    'Garantie minimale de points (GMP)'
-  ],
-  employee_part: [0.004, 0, 0, 0.029, 0, 0, 0.0483, 0, 0.03894, 0.008, 0, 0, 0, 0.0013, 0, 1.42, 1.52],
-  employer_part: [0.019, 0.017, 0.001, 0, 0.094, 0.02421, 0.05991, 0.00151, 0.0391, 0.012, 0.01951, 0.152,
-                  0.02521, 0.00221, 0.017, 2.32, 2.48],
-  start_date: '2023-01-01',
-  end_date: '2023-12-31'
-}
-
-unused_contributions[:fund].each_with_index do |fund, index|
-  Contribution.create!(
-    fund:,
-    name: used_contributions[:name][index],
-    employee_part: used_contributions[:employee_part][index],
-    employer_part: used_contributions[:employer_part][index],
-    start_date: used_contributions[:start_date],
-    end_date: used_contributions[:end_date]
-  )
-end
+@common_contributions_array.each { |c| common_contributions << Contribution.create!(c) }
+@artists_contributions_array.each { |c| artists_common_contributions << Contribution.create!(c) }
+@non_artists_contributions_array.each { |c| non_artists_common_contributions << Contribution.create!(c) }
+@n_artists_nc_contributions_array.each { |c| specific_nartistnc_contributions << Contribution.create!(c) }
+@n_artists_c_contributions_array.each { |c| specific_nartistc_contributions << Contribution.create!(c) }
+@artists_nc_contributions_array.each { |c| specific_artistnc_contributions << Contribution.create!(c) }
+@artists_c_contributions_array.each { |c| specific_artistc_contributions << Contribution.create!(c) }
 
 puts 'Contributions created'
 
-puts 'Creating job profiles'
 
-txt = File.read(Rails.root.join('liste_metiers_techos_admin.txt'))
-array = txt.split(',')
-array.pop
-array.each do |job|
-  JobProfile.create!(artist: false, executive: false, name: job)
-  JobProfile.create!(artist: false, executive: false, name: job)
-end
+puts 'Creating job profiles and their links to contributions'
 
-puts 'Job profiles created'
+load Rails.root.join('db', 'seed_data', 'jobs_lists.rb')
 
-puts 'creating job profiles to contributions links'
-
-all_job_profiles = JobProfile.all
-all_job_profiles.each do |job_profile|
-  used_contributions_array.each do |contribution|
+@nartistsnc.each do |job|
+  job_profile = JobProfile.create!(artist: false, executive: false, name: job)
+  non_artist_non_executive_contributions =
+    common_contributions + non_artists_common_contributions + specific_nartistnc_contributions
+  non_artist_non_executive_contributions.each do |contribution|
     JobProfilesToContributionsLink.create!(job_profile:, contribution:)
   end
 end
 
-puts 'job profiles to contributions links created'
-
-puts 'creating payslips'
-
-payslips = {
-  payslip_number: 1,
-  employee_id: [jean_mich.id, fabrice.id, mamadou.id, luke.id, albert.id, luke2.id,albert2.id],
-  company_id: [company1.id, company2.id, company3.id, company1.id, company2.id, company3.id, company3.id],
-  contract_start: '2018-01-12',
-  contract_end: '2018-01-13',
-  payment_date: '2018-01-17',
-  performance_id: [p1.id, p2.id, p3.id, p1.id, p2.id, p3.id, p3.id],
-  hours_per_day: 8,
-  executive: false,
-  allowance: 1,
-  basis: 212.00,
-  basis_per_day: 106.00,
-  allowance_basis: 212.00,
-  number_of_hours: 16,
-  employer_s_contribution: 115.09,
-  employee_s_contribution: 52.77,
-  net_salary: 159.23,
-  taxable_net: 165.30,
-  urssaf_limit: 400.00,
-  employer_cost: 286.68,
-  number_of_performance: 0,
-  number_of_rehearsal: 0,
-  gross_salary_accumulation: 138,
-  taxable_net_accumulation: 109.93,
-  net_accumulation: 105.98,
-  urssaf_limit_accumulation: 288.00,
-  employer_cost_accumulation: 214.20,
-  hours_accumulation: 12,
-  artist: false
-}
-
-payslips[:employee_id].each_with_index do |employee_id, index|
-  Payslip.create!(
-    payslip_number: 1,
-    employee_id: employee_id,
-    company_id: payslips[:company_id][index],
-    contract_start: '2018-01-12',
-    contract_end: '2018-01-13',
-    payment_date: '2018-01-17',
-    performance_id: payslips[:performance_id][index],
-    hours_per_day: 8,
-    executive: false,
-    allowance: 1,
-    basis: 212.00,
-    basis_per_day: 106.00,
-    allowance_basis: 212.00,
-    number_of_hours: 16,
-    employer_s_contribution: 115.09,
-    employee_s_contribution: 52.77,
-    net_salary: 159.23,
-    taxable_net: 165.30,
-    urssaf_limit: 400.00,
-    employer_cost: 286.68,
-    number_of_performance: 0,
-    number_of_rehearsal: 0,
-    gross_salary_accumulation: 138,
-    taxable_net_accumulation: 109.93,
-    net_accumulation: 105.98,
-    urssaf_limit_accumulation: 288.00,
-    employer_cost_accumulation: 214.20,
-    hours_accumulation: 12,
-    artist: false
-  )
+@nartistsc.each do |job|
+  job_profile = JobProfile.create!(artist: false, executive: true, name: job)
+  non_artist_executive_contributions =
+    common_contributions + non_artists_common_contributions + specific_nartistc_contributions
+  non_artist_executive_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
 end
+
+@artistsnc.each do |job|
+  job_profile = JobProfile.create!(artist: true, executive: false, name: job)
+  artist_non_executive_contributions =
+    common_contributions + artists_common_contributions + specific_artistnc_contributions
+  artist_non_executive_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
+end
+
+@artistsc.each do |job|
+  job_profile = JobProfile.create!(artist: true, executive: true, name: job)
+  artist_executive_contributions =
+    common_contributions + artists_common_contributions + specific_artistnc_contributions
+    artist_executive_contributions.each do |contribution|
+    JobProfilesToContributionsLink.create!(job_profile:, contribution:)
+  end
+end
+
+puts 'Job profiles created'
+
+
+puts 'Creating payslips'
+
+load Rails.root.join('db', 'seed_data', 'payslips_data.rb')
+
+payslips1to14 = []
+12.times do |i|
+  payslip = Payslip.create!(company: company1, employee: employees[0], performance: perf1)
+  payslip.update!(payslip_number: i+2)
+  if i < 8
+    payslip.update!(
+      contract_start: "2024-0#{i+1}-01",
+      contract_end: "2024-0#{i+1}-01",
+      payment_date: "2024-0#{i+1}-01"
+    )
+  else
+    payslip.update!(
+      contract_start: "2024-#{i+1}-01",
+      contract_end: "2024-#{i+1}-01",
+      payment_date: "2024-#{i+1}-01"
+    )
+  end
+  payslip.update!(@payslips_producer)
+  payslips1to14 << payslip
+end
+
+payslip13 = Payslip.create!(company: company1, employee: employees[0], performance: perf1)
+payslip13.update!(@producer_payslip_september_festival)
+payslips1to14 << payslip13
+
+payslip14 = Payslip.create!(company: company2, employee: employees[7], performance: perf2)
+payslip14.update!(@producer_payslip_october_tour)
+payslips1to14 << payslip14
+
+payslip15 = Payslip.create!(company: company1, employee: employees[1], performance: perf1)
+payslip15.update!(@comedians_payslip_september_festival)
+
+payslip16 = Payslip.create!(company: company1, employee: employees[4], performance: perf1)
+payslip16.update!(@comedians_payslip_september_festival)
+
+payslip17 = Payslip.create!(company: company2, employee: employees[5], performance: perf2)
+payslip17.update!(@musician_payslip_october_tour)
+
+payslip18 = Payslip.create!(company: company2, employee: employees[6], performance: perf2)
+payslip18.update!(@singer_payslip_october_tour)
+
+payslip19 = Payslip.create!(company: company1, employee: employees[3], performance: perf1)
+payslip19.update!(@sound_manager_payslip_september_festival)
+
+payslip20 = Payslip.create!(company: company1, employee: employees[2], performance: perf1)
+payslip20.update!(@director_payslip_september_festival)
 
 puts 'Payslips created'
 
+
 puts 'Creatings payslips to contributions links'
 
-all_payslips = Payslip.all
-all_payslips.each do |payslip|
-  used_contributions_array.each do |contribution|
+# Everybody's contributions are here linked to everybody's payslips
+Payslip.all.each do |payslip|
+  common_contributions.each do |contribution|
     PayslipsToContributionsLink.create!(payslip:, contribution:)
   end
+end
+
+# adding links for non-artist, non-executive employee
+payslips1to14.each do |payslip|
+  non_artists_common_contributions.each do |contribution|
+    PayslipsToContributionsLink.create!(payslip:, contribution:)
+  end
+  specific_nartistnc_contributions.each do |contribution|
+    PayslipsToContributionsLink.create!(payslip:, contribution:)
+  end
+end
+
+# adding links for non-artist, executive employee
+non_artists_common_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip19, contribution:)
+end
+specific_nartistc_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip19, contribution:)
+end
+
+# adding links for artist, non-executive employee
+artists_common_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip15, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip16, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip17, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip18, contribution:)
+end
+specific_artistnc_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip15, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip16, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip17, contribution:)
+  PayslipsToContributionsLink.create!(payslip: payslip18, contribution:)
+end
+
+# adding links for artist, non-executive employee
+artists_common_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip20, contribution:)
+end
+specific_artistc_contributions.each do |contribution|
+  PayslipsToContributionsLink.create!(payslip: payslip20, contribution:)
 end
 
 puts 'Payslips to contributions links created'

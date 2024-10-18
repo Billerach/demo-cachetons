@@ -3,8 +3,7 @@
   border : 1px solid $grey200;
   background-color:$grey250;
   border-radius: 5px;
-  font-size:14px;
-  color:rgb(46, 163, 157);
+  color: $bleuvert;
   text-decoration: none;
   line-height: 30px;
   transition: all 0.2s;
@@ -16,8 +15,7 @@
   }
 
   &:hover{
-    box-shadow: 3px 3px 3px rgba(46, 163, 157, 0.199);
+    box-shadow: 3px 3px 3px $bleuvert-opacity20;
     background-color: white;
-    color: $bleuvert;
   }
 }

@@ -1,22 +1,14 @@
-<%= form_with model: @job_profile do |f| %>
-  <h2>
-    <%= @job_profile.name %>
-  </h2>
+<%= simple_form_for(@job_profile) do |f| %>
   <%= link_to "Annuler", job_profiles_url %>
   <div>
-    <strong><%= f.label "Artiste ?" %></strong>
-    <%= f.check_box "artist" %> <br />
-    <strong><%= f.label "Cadre ?" %></strong>
-    <%= f.check_box "executive" %> <br />
-    <%= f.label :contributions %> : <br />
-    <% @contributions.each do |contribution| %>
-      <label>
-        <%= check_box_tag "job_profile[contributions_list][]", contribution.id, @job_profile.contributions.include?(contribution)%>
-        <%= contribution.name %>
-      </label>
-      <br>
-    <% end %>
+    <%= f.input :name, label: false %>
+    <%= f.input :artist, label: "Artiste ?", as: :boolean %>
+    <%= f.input :executive, label: "Cadre ?", as: :boolean %>
+    <%= f.association :contributions,
+      as: :check_boxes,
+      label_method: :name,
+      input_html: { name: 'job_profile[contributions_ids][]' }
+    %>
   </div>
-
   <%= f.submit %>
 <% end %>

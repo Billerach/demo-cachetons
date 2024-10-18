@@ -1,0 +1,60 @@
+<h2 class="page_title"><%= @employee.lastname_with_firstname %></h2>
+<div class="container">
+  <div data-controller="edit-employee" class="border-bottom border-dark-subtle mb-4">
+    <div data-edit-employee-target="storedEmployeeData" class="d-flex me-4">
+      <%= cl_image_tag @employee.photo.key, height: 200, width: 200, crop: :fill if @employee.photo.attached? %>
+      <ul class="m-0">
+        <li>Date de naissance : <%= @employee.date_of_birth %></li>
+        <li>Lieu de naissance : <%= @employee.place_of_birth %></li>
+        <li> <%= "Département de naissance : #{@employee.departement_of_birth}" if @employee.departement_of_birth.present? %></li>
+        <li>Pays de naissance : <%= @employee.country_of_birth %></li>
+        <li>Adresse : <%= @employee.address %></li>
+        <li>
+          Téléphone(s) : <%= @employee.phone %>
+          <%= ", #{@employee.phone_2}" if @employee.phone_2.present? %>
+        </li>
+        <li>Sécurité Sociale : <%= @employee.NIR %></li>
+        <li>Congés Spectacle : <%= @employee.conges_spectacles %></li>
+      </ul>
+    </div>
+    <div data-edit-employee-target="editEmployeeContainer">
+      <div class="d-flex flex-column align-items-center">
+        <%= button_to "Modifier les données de l'employé",
+          "", class: "border border-0 m-3 btn-flat",
+          data: {
+            action: "click->edit-employee#edit",
+            edit_employee_target: "editEmployeeButton"
+          }
+        %>
+      </div>
+      <div class="d-none new_form new_form_absolute edit_employee_form_position new_company_form_position" data-edit-employee-target="editEmployeeForm">
+        <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel">
+          <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-2 cancel_hover"></i>
+        </div>
+        <%= render 'edit' %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <% if @employee.payslips.present? %>
+      <h3>Ses fiches de paie cette année</h3>
+      <ul class="p-0">
+        <% @employee.payslips.each do |payslip| %>
+          <li class="li_margin-top">
+            <%= link_to company_payslip_url(@employee.company, payslip) do %>
+              <div class="payslip_card">
+                <%= "Du #{payslip.contract_start} au #{payslip.contract_end} pour #{payslip.performance.name}" %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h3><%= @employee.firstname %> n'a pas encore de fiche de paie pour cette année</h3>
+    <% end %>
+  </div>
+    <%= link_to "Supprimer", company_employee_url, data: {
+      turbo_method: :delete,
+      turbo_confirm: "Êtes-vous sûr de vouloir supprimer les données de #{@employee.lastname_with_firstname} ?"
+      } %>
+</div>

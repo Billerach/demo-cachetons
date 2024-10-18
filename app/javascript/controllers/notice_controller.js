@@ -4,11 +4,16 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["closeNoticeButton"]
 
-  connect() {
-  }
-
   close() {
-    this.closeNoticeButtonTarget.remove();
-    document.querySelector(".blackout").remove();
+
+    if (this.hasCloseNoticeButtonTarget) {
+      this.closeNoticeButtonTarget.remove();
+    }
+
+    const blackoutElement = document.querySelector(".blackout");
+    if (blackoutElement) {
+      blackoutElement.remove();
+    }
+
   }
 }

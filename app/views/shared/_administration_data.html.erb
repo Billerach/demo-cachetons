@@ -4,12 +4,27 @@
   <% else %>
     <% company = Company.find(params[:company_id].to_i) %>
   <% end %>
-  <h2><%= company.name %></h2>
-  <p>
-    <strong>Siret : </strong>         <%= company.siret %><br />
-    <strong>NAF : </strong>           <%= company.naf %><br />
-    <strong>Adresse : </strong>       <%= company.address %><br />
-    <strong>N° de License : </strong> <%= company.license_number %><br />
-  </p>
-    <%= link_to "Modifier les données de la structure", edit_company_url if params[:controller] == "companies" && params[:action] == "show" %>
+  <div data-controller="edit-company">
+    <div data-edit-company-target="storedCompanyData">
+      <h2><%= company.name %></h2>
+      <p><%= company.specialty.capitalize if company.specialty.present? %></p>
+      <strong>Siret : </strong>         <%= company.siret %><br />
+      <strong>NAF : </strong>           <%= company.naf %><br />
+      <strong>Adresse : </strong>       <%= company.address %><br />
+      <strong>N° de License : </strong> <%= company.license_number %><br />
+    </div>
+    <div class="d-none" data-edit-company-target="editCompanyForm">
+      <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel" class="position-relative p-3">
+        <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-2 cancel_hover_white"></i>
+      </div>
+      <%= render "companies/edit" %>
+    </div>
+    <div class="mt-3" data-edit-company-target="editCompanyLink">
+      <% if params[:controller] == "companies" && params[:action] == "show" %>
+        <a href="" data-action="click->edit-company#edit">
+          Modifier les données de la structure
+        </a>
+      <% end %>
+    </div>
+  </div>
 </div>

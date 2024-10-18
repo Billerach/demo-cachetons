@@ -8,12 +8,12 @@
 @import "font-awesome";
 
 // Your CSS partials
-@import "variables";
 @import "components/index";
 @import "pages/index";
 @import "companies/index";
 @import "shared/index";
-@import "job_profiles/new";
+@import "payslips/index";
+@import "employees/edit";
 
 
 //General rules
@@ -38,6 +38,10 @@ ul{
 
 small {
   font-size: 0.75rem;
+}
+
+.not_so_small {
+  font-size: 0.85rem;
 }
 
 

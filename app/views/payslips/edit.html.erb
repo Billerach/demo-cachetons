@@ -1,0 +1,19 @@
+<div>
+  <h2 class="page_title">
+    Edition paie
+    <%= "#{@payslip.employee.lastname_with_firstname} ##{@payslip.payslip_number}" %>
+  </h2>
+  <div class="payslip_edit_container">
+    <div class="payslip_edit_form">
+      <h3><%= @payslip.job_profile %></h3>
+      <div>
+        <%= @payslip.artist? ? "Annexe 10 (artiste)" : "Annexe 8 (non-artiste)" %>
+        <%= @payslip.executive? ? "cadre" : "non-cadre" %>
+      </div>
+      <%= render "edit-form" %>
+    </div>
+    <div>
+      <%= render "edit-table" %>
+    </div>
+  </div>
+</div>

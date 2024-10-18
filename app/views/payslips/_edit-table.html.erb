@@ -1,0 +1,63 @@
+<table class="table table-bordered border border-black line_height_75rem">
+  <thead>
+    <tr>
+      <th scope="col">
+        <%= "Nombre de jours travaillés : #{@payslip.number_of_days}" %>
+      </th>
+      <th scope="col" rowspan="2">Base</th>
+      <th colspan="2">Part salariale</th>
+      <th colspan="2">Part patronale</th>
+    </tr>
+    <tr>
+      <th scope="col">Cotisations</th>
+      <th scope="col">Taux</th>
+      <th scope="col">Montant</th>
+      <th scope="col">Taux</th>
+      <th scope="col">Montant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payslip.contributions.each do |contribution| %>
+      <tr>
+        <td class="not_so_small"><%= contribution.name %></td>
+        <td class="not_so_small"><%= @payslip.basis %></td>
+        <% if contribution.employee_part != 0 %>
+          <td><%= (contribution.employee_part*100).round(2) %>%</td>
+          <td><%= sprintf("%.2f",(contribution.employee_part*@payslip.basis).round(4)) %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
+        <% if contribution.employer_part != 0 %>
+          <td><%= (contribution.employer_part*100).round(2) %>%</td>
+          <td><%= (contribution.employer_part*@payslip.basis).round(2) %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+    <tr>
+      <td><strong>Totaux</strong></td>
+      <td></td>
+      <td></td>
+      <td><strong><%= sprintf("%.2f",(@payslip.employee_s_contribution).round(4)) %></strong></td>
+      <td></td>
+      <td><strong><%= sprintf("%.2f",(@payslip.employer_s_contribution).round(4)) %></strong></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="bg-secondary-subtle">
+        <strong class="text-uppercase">NET A PAYER</strong>
+      </td>
+      <td class="bg-secondary-subtle">
+        <strong class="fs-5"><%= sprintf("%.2f",(@payslip.net_salary).round(4)) %></strong>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5"><strong>Coût employeur</strong></td>
+      <td>
+        <strong class="fs-5"><%= sprintf("%.2f",(@payslip.employer_cost).round(4)) %></strong>
+      </td>
+    </tr>
+  </tbody>
+</table>

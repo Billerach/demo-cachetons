@@ -10,5 +10,9 @@ class Payslip < ApplicationRecord
   belongs_to :performance
   belongs_to :company
 
-  # TODO: validations
+  
+
+  def is_last_payslip?
+    Payslip.where(employee: self.employee.id).count == self.payslip_number
+  end
 end

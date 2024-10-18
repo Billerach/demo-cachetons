@@ -11,7 +11,6 @@
     <h2>Version de démo</h2>
     <ul>
       <li><%= link_to "Vos modèles", job_profiles_url, class: "dropdown-item" %></li>
-      <li><%= link_to "Log out", "#", class: "dropdown-item" %></li>
     </ul>
   </nav>
 
@@ -27,6 +26,9 @@
             <% when "index" %>
               <li><%= link_to @company.name, company_path(@company.id) %></li>
             <% when "show" %>
+              <li><%= link_to @payslip.company.name, company_path(@payslip.company.id) %></li>
+              <li><%= link_to "Liste des fiches de paye", company_payslips_path(@payslip.company.id) %></li>
+            <% when "edit" %>
               <li><%= link_to @payslip.company.name, company_path(@payslip.company.id) %></li>
               <li><%= link_to "Liste des fiches de paye", company_payslips_path(@payslip.company.id) %></li>
           <% end %>

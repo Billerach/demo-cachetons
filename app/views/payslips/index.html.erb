@@ -1,50 +1,54 @@
 <div id="payslips_index">
-  <h2 class="page_title">
-    <%= @company.name  %> : <br /> Fiches de paie.
-  </h2>
-  <div class="d-flex justify-content-evenly border">
-    <%= simple_form_for Payslip.new, url: company_payslips_path(@company), data: {turbo_method: :post} do |form| %>
-      <%= form.input :employee_id, label: "Nouvelle fiche de paie pour :", collection: @company.employees.distinct, label_method: :lastname_with_firstname, value_method: :id, include_blank: false %>
-      <%= form.input :job_profile, label: ", en tant que :", collection: JobProfile.all, label_method: :name, value_method: :id, include_blank: false %>
-      <%= form.input :performance_id, label: ", concernant le spectacle :", collection: @company.performances, label_method: :name, value_method: :id, include_blank: false %>
-      <%= form.input :contract_start, label: "embauche prévue le :", as: :date, html5: true, input_html: { value: Date.today } %>
-      <%= form.submit %>
-    <% end %>
+  <div class="d-flex justify-content-center">
+    <h2 class="page_title"><%= @company.name  %> : Fiches de paie.</h2>
+    <div data-controller="add-payslip" data-add-payslip-target="newPayslipContainer">
+      <button data-action="click->add-payslip#add" data-add-payslip-target="addPayslipButton" class="new_button">+</button>
+      <div data-add-payslip-target="addPayslipForm" class="d-none new_form new_form_absolute new_payslip_form_position">
+        <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel">
+          <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-3 cancel_hover"></i>
+        </div>
+        <%= simple_form_for Payslip.new, url: company_payslips_path(@company), data: {turbo_method: :post} do |f| %>
+          <%= f.input :employee_id, label: "Nouvelle fiche de paie pour :", collection: @company.employees.distinct, label_method: :lastname_with_firstname, value_method: :id, include_blank: false %>
+          <%= f.input :job_profile, label: ", en tant que :", collection: JobProfile.all, label_method: :name, value_method: :id, include_blank: false %>
+          <%= f.input :performance_id, label: ", concernant le spectacle :", collection: @company.performances, label_method: :name, value_method: :id, include_blank: false %>
+          <%= f.input :contract_start, label: "embauche prévue le :", as: :date, html5: true, input_html: { value: Date.today } %>
+          <%= f.button :submit, "Créer une fiche de paie", class: "create_button payslip_letter_spacing" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div id="payslips_board_container">
-    <% if @payslips.present? %>
-      <ul class='payslips_board_title'>
-        <% month_list = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]%>
-        <% month_list.each_with_index do |month, index| %>
-          <li>
-            <h4><%= month.upcase %></h4>
-            <div class="payslips_list">
-              <% @payslips.each do |payslip| %>
-                <% if payslip.contract_start? %>
-                  <% payslip_contract_start_month = Date.parse((payslip.contract_start).to_s).strftime("%m") %>
-                  <% else %>
-                  <% payslip_contract_start_month = "--" %>
-                <% end %>
+  <% if @payslips.present? %>
+    <ul>
+      <% month_list = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]%>
+      <% month_list.each_with_index do |month, index| %>
+        <li>
+          <h4><%= month.upcase %></h4>
+          <ul>
+            <% @payslips.each do |payslip| %>
+              <% if payslip.contract_start? %>
+                <% payslip_contract_start_month = Date.parse((payslip.contract_start).to_s).strftime("%m") %>
+              <% else %>
+                <% payslip_contract_start_month = "--" %>
+              <% end %>
+              <li class="li_margin-top">
                 <% if payslip_contract_start_month.to_i == index + 1 %>
-                  <%= link_to company_payslip_path(payslip.company,payslip.id), class: "job_profile_card" do %>
-                    <p>
+                  <%= link_to company_payslip_path(payslip.company,payslip.id) do %>
+                    <div class="payslip_card">
                       <%= payslip.employee.lastname %>
                       <%= payslip.employee.firstname %>,
-                      <%= "#{payslip.job_profile} #{payslip.artist? ? '( Artiste' : '( Non-artiste'} #{payslip.executive? ? 'Cadre )' : 'Non-cadre )'}" %>,
+                      <%= payslip.job_profile %>.
                       Du <%= payslip.contract_start %> au <%= payslip.contract_end %>
                       pour "<%= payslip.performance.name %>".
-                    </p>
-                    </a>
+                    </div>
                   <% end %>
                 <% end %>
-              <% end %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <div id="no_result">Pas de résultats</div>
-    <% end %>
-
-  </div>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div>Pas de résultats</div>
+  <% end %>
 </div>

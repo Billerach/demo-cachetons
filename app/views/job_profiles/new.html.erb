@@ -15,10 +15,10 @@
       </div>
     </div>
 
-    <div id="new_job_profile_contributions">
+    <div class="w-100">
       <% @contributions.each do |contribution| %>
         <label>
-          <%= check_box_tag "job_profile[contributions_list][]", contribution.id %>
+          <%= check_box_tag "job_profile[contributions_ids][]", contribution.id %>
           <%= contribution.name %>
         </label>
         <br />

@@ -7,7 +7,17 @@ class PerformancesController < ApplicationController
     if @performance.save
       redirect_to company_url(company)
     else
-      redirect_to company_url(company), alert: "Impossible d'ajouter l'employé'. Contactez le support."
+      case @performance.errors.full_messages.to_sentence
+      when "Name has already been taken"
+        alert =  "Le spectacle existe déjà."
+      when "Name can't be blank"
+        alert =  "Il faut un nom pour le spactacle."
+      else
+        alert = "Impossible d'ajouter le spectacle.
+          Contactez le support. Raison invoquée :
+          #{@performance.errors.full_messages.to_sentence}"
+      end
+      redirect_to company_url(company), alert:
     end
   end
 
@@ -39,6 +49,6 @@ class PerformancesController < ApplicationController
   private
 
   def performance_params
-    params.require(:performance).permit(:name, :num_objet)
+    params.require(:performance).permit(:name, :num_objet, :picture)
   end
 end

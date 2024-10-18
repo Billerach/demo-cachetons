@@ -1,0 +1,64 @@
+<% @company.performances.each do |performance| %>
+  <li class="performance_card">
+
+    <%# performance edit button %>
+
+    <div class="height0" data-controller="edit-performance"
+      data-edit-performance-target="editPerformanceContainer">
+      <button class="grey_btn grey_btn_edit"
+        data-action="click->edit-performance#edit"
+        data-edit-performance-target="editPerformanceButton">
+        <i class="fa-solid fa-pencil"></i>
+      </button>
+      <div data-edit-performance-target="editPerformanceForm"
+        class="d-none new_form new_form_absolute new_company_form_position">
+        <div data-controller="cancel" data-cancel-target="cancelButton" data-action="click->cancel#cancel">
+          <i class="position-absolute top-0 end-0 fa-solid fa-xmark m-1 cancel_hover"></i>
+        </div>
+        <%= simple_form_for(performance, url: company_performance_url(@company, performance), method: :patch) do |f| %>
+          <%= f.input :name, label: false, required: true %>
+          <%= f.input :num_objet, label: false, required: true %>
+          <%= f.input :picture, as: :file %>
+          <%= f.button :submit, "Enregistrer", class: "create_button" %>
+        <% end %>
+      </div>
+    </div>
+
+    <%# performance delete button %>
+
+    <div class="height0">
+      <%= link_to company_performance_url(@company, performance),
+        class: "grey_btn grey_btn_delete", data: {
+          turbo_method: :delete,
+          turbo_confirm: "Êtes-vous sûr de vouloir supprimer #{performance.name} ?"
+          } do
+      %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
+    </div>
+
+    <%# performance card itself %>
+
+    <%= link_to company_payslips_path(@company, performance:) do %>
+      <% if performance.picture.attached? %>
+        <%= cl_image_tag performance.picture.key, height: 200, width: 200, crop: :fill %>
+      <% else %>
+        <div class="missing_picture text-center"><i class="fa-regular fa-image"></i></div>
+      <% end %>
+      <div class="performance_card_infos">
+        <h5><%= performance.name %></h5>
+        <p><%= performance.num_objet %></p>
+        <p>
+          <% case performance.payslips.count %>
+          <% when 0 %>
+            Aucune fiche de paie
+          <% when 1 %>
+            1 fiche de paie
+          <% else %>
+            <%= "#{performance.payslips.count} fiches de paie" %>
+          <% end %>
+        </p>
+      </div>
+    <% end %>
+  </li>
+<% end %>

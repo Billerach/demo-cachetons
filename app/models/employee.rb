@@ -8,6 +8,7 @@
 class Employee < ApplicationRecord
   has_many :payslips
   belongs_to :company
+  has_one_attached :photo
 
   validates :firstname,         presence: true
   validates :lastname,          presence: true
@@ -16,7 +17,6 @@ class Employee < ApplicationRecord
   validates :NIR,               presence: true
   validates :date_of_birth,     presence: true
   validates :place_of_birth,    presence: true
-  validates :country_of_birth,  presence: true
   validates :company,           presence: true
 
   def lastname_with_firstname

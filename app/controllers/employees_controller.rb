@@ -2,6 +2,7 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = Employee.find(params[:id])
+    @company = Company.find(params[:company_id])
   end
 
   def create
@@ -12,7 +13,8 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to company_url(company)
     else
-      redirect_to company_url(company), alert: "Impossible d'ajouter l'employé'. Contactez le support."
+      alert = "Impossible d'ajouter l'employé'. Raison : #{@employee.errors.full_messages.to_sentence}."
+      redirect_to company_url(company), alert:
     end
   end
 
@@ -59,8 +61,8 @@ class EmployeesController < ApplicationController
       :date_of_birth,
       :place_of_birth,
       :departement_of_birth,
-      :country_of_birth
+      :country_of_birth,
+      :photo
     )
   end
 end
-

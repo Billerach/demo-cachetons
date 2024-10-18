@@ -7,11 +7,19 @@
   text-transform: uppercase;
   letter-spacing: 3px;
   color:$bleuvert;
+  transition: all 0.2s;
 
   &:hover{
     background-color: $bleuvert;
     border-radius: 5px;
-    transition: all 0.2s;
     color: white;
   }
+
+}
+.company_letter_spacing{
+  @media screen and (max-width:363px) {letter-spacing: 1px;}
+}
+
+.payslip_letter_spacing{
+  @media screen and (max-width:363px) {white-space: normal;}
 }
