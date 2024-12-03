@@ -45,7 +45,7 @@
               <% if employee.photo.attached? %>
                 <%= cl_image_tag employee.photo.key, height: 200, width: 200, crop: :fill %>
               <% else %>
-                <div class="missing_picture text-center"><i class="fa-solid fa-user"></i></div>
+                <div class="missing_picre text-center"><i class="fa-solid fa-user"></i></div>
               <% end %>
               <div class="line_height_53px text-center"><%= employee.lastname_with_firstname %></div>
             <% end %>
